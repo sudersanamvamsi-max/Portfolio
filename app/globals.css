@@ -1,0 +1,58 @@
+@import "tailwindcss";
+
+:root {
+  --paper: #f5f7f8;
+  --ink: #1c2b36;
+  --muted: #5b6b78;
+  --grid: #dce3e8;
+  --cohort-a: #2e4ba8;
+  --cohort-b: #b7862b;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #182530;
+    --ink: #e6edf1;
+    --muted: #9fb0bd;
+    --grid: #2f3f4b;
+    --cohort-a: #8fa9ff;
+    --cohort-b: #e0b04f;
+  }
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-grid: var(--grid);
+  --color-cohort-a: var(--cohort-a);
+  --color-cohort-b: var(--cohort-b);
+  --font-serif: var(--font-newsreader), Georgia, serif;
+  --font-sans: var(--font-public-sans), system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    color-scheme: light dark;
+    background: var(--paper);
+  }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-serif);
+    font-size: 1.1875rem;
+    line-height: 1.6;
+  }
+
+  a {
+    color: var(--cohort-a);
+    text-underline-offset: 0.2em;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--cohort-a);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+}
