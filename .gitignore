@@ -3,6 +3,17 @@ node_modules/
 out/
 *.tsbuildinfo
 next-env.d.ts
-.env*.local
-.vercel
-npm-debug.log*
+.vercel/
+
+# Local secrets and environment overrides
+.env
+.env.*
+!.env.example
+
+# Logs and local tooling output
+*.log
+coverage/
+
+# Operating-system files
+.DS_Store
+Thumbs.db

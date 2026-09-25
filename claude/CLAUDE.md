@@ -11,6 +11,7 @@ Personal site for a clinical ML researcher who also ships software. Read this fi
 ## Stack
 
 - Next.js (App Router) + TypeScript + Tailwind CSS, static export (`output: "export"`).
+- Keep TypeScript on 5.x for compatibility with the current Next.js and Tailwind toolchain; do not upgrade it without explicit approval.
 - Content lives in `content.md` for now. Move it into typed data files or MDX under `/content` as you build; `content.md` stays the source of truth until Vamsi says otherwise.
 - Deploy target: Vercel or GitHub Pages (decide at deploy time; keep the build static so either works).
 - No backend. No analytics or trackers unless asked.

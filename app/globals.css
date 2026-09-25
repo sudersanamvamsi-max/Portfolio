@@ -56,3 +56,38 @@
     border-radius: 2px;
   }
 }
+
+/* Hero curve: drawn once on load. Only animates when motion is allowed;
+   otherwise the default styles show it fully drawn. */
+.curve-path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .curve-path {
+    animation: curve-draw 1.2s ease-out both;
+  }
+
+  .curve-tick {
+    animation: curve-tick-in 0.4s ease-out both;
+  }
+}
+
+@keyframes curve-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes curve-tick-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
