@@ -177,7 +177,7 @@ export const publications: Publication[] = [
     authors:
       "Muftuler, L. T., Drobek, A., Bukowy, J. D., Duwe, K., **Sudersanam, V.**, Harrington, J., Van Zant, E., Duenweg, S. R., & Shanbhag, D. D.",
     year: "2026",
-    title: "TODO: title as it appears on medRxiv",
+    title: "Predicting intervertebral disc degeneration using Pyradiomics features and XGBoost classification",
     venue: "medRxiv",
     doi: "10.64898/2026.01.13.26343807",
   },
@@ -185,6 +185,6 @@ export const publications: Publication[] = [
     authors: "**Sudersanam, V. K.**, Wang, Y., & Nanchal, R. S.",
     title:
       "A Systematic Evaluation of MRI Normalization for Multi-Site Radiomics-Based Disc Degeneration Classification",
-    venue: "Preprint",
+    venue: "Manuscript",
   },
 ];

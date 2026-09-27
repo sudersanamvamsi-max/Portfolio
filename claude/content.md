@@ -56,8 +56,8 @@
 
 ### Manuscripts
 
-- Muftuler, L. T., Drobek, A., Bukowy, J. D., Duwe, K., **Sudersanam, V.**, Harrington, J., Van Zant, E., Duenweg, S. R., & Shanbhag, D. D. (2026).  *medRxiv.* DOI: 10.64898/2026.01.13.26343807
-- **Sudersanam, V. K.**, Wang, Y., & Nanchal, R. S. A Systematic Evaluation of MRI Normalization for Multi-Site Radiomics-Based Disc Degeneration Classification. *Preprint*
+- Muftuler, L. T., Drobek, A., Bukowy, J. D., Duwe, K., **Sudersanam, V.**, Harrington, J., Van Zant, E., Duenweg, S. R., & Shanbhag, D. D. (2026). Predicting intervertebral disc degeneration using Pyradiomics features and XGBoost classification. *medRxiv.* DOI: 10.64898/2026.01.13.26343807
+- **Sudersanam, V. K.**, Wang, Y., & Nanchal, R. S. A Systematic Evaluation of MRI Normalization for Multi-Site Radiomics-Based Disc Degeneration Classification. *Manuscript*
 
 ## Engineering
 
