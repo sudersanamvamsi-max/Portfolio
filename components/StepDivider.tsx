@@ -1,16 +1,16 @@
 export default function StepDivider() {
   return (
     <svg
-      viewBox="0 0 600 16"
+      viewBox="0 0 200 20"
       preserveAspectRatio="none"
       aria-hidden="true"
-      className="h-4 w-full"
+      className="h-5 w-1/4 min-w-40"
     >
       <path
-        d="M0 1 H120 V5 H240 V8 H360 V11 H480 V15 H600"
+        d="M0 2 H50 V8 H100 V13 H150 V18 H200"
         fill="none"
         stroke="var(--grid)"
-        strokeWidth="1.5"
+        strokeWidth="2"
         vectorEffect="non-scaling-stroke"
       />
     </svg>

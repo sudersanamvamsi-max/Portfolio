@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { Newsreader, Public_Sans } from "next/font/google";
+import SiteHeader from "@/components/SiteHeader";
 import "./globals.css";
 
 const newsreader = Newsreader({
@@ -18,11 +19,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className={`${newsreader.variable} ${publicSans.variable}`}>
       <body className="flex min-h-screen flex-col font-serif">
-        <header className="mx-auto w-full max-w-5xl px-5 py-6 font-sans">
-          <a href="/" className="font-medium text-ink no-underline hover:underline">
-            Vamsi Sudersanam
-          </a>
-        </header>
+        <SiteHeader />
         <main className="mx-auto w-full max-w-5xl flex-1 px-5 py-8">{children}</main>
         <footer className="mx-auto w-full max-w-5xl border-t border-grid px-5 py-6 font-sans text-sm text-muted">
           <p>

@@ -8,7 +8,7 @@ export default function Home() {
     <>
       <section>
         <h1 className="text-4xl font-medium leading-tight md:text-5xl">Vamsi Sudersanam</h1>
-        <p className="mt-3 max-w-[52ch]">
+        <p className="mt-3 max-w-measure">
           I build machine learning for critical care: models that predict when a patient on
           non-invasive breathing support is about to need a ventilator, and the pipelines that make
           those predictions trustworthy.

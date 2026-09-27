@@ -7,6 +7,7 @@
   --grid: #dce3e8;
   --cohort-a: #2e4ba8;
   --cohort-b: #b7862b;
+  --measure: 68ch;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -27,6 +28,7 @@
   --color-grid: var(--grid);
   --color-cohort-a: var(--cohort-a);
   --color-cohort-b: var(--cohort-b);
+  --container-measure: var(--measure);
   --font-serif: var(--font-newsreader), Georgia, serif;
   --font-sans: var(--font-public-sans), system-ui, sans-serif;
 }
