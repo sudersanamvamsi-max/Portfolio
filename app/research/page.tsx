@@ -35,7 +35,7 @@ export default function Research() {
         </h2>
         <ul className="mt-4 flex max-w-measure flex-col gap-4">
           {publications.map((pub) => (
-            <li key={pub.title}>
+            <li key={`${pub.authors}-${pub.title}`}>
               <Inline text={pub.authors} />
               {pub.year ? ` (${pub.year}). ` : " "}
               {pub.title}. <em>{pub.venue}.</em>

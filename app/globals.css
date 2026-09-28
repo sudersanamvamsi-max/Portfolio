@@ -30,6 +30,7 @@
   --color-cohort-b: var(--cohort-b);
   --container-measure: var(--measure);
   --font-serif: var(--font-newsreader), Georgia, serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
   --font-sans: var(--font-public-sans), system-ui, sans-serif;
 }
 

@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { Newsreader, Public_Sans } from "next/font/google";
+import { JetBrains_Mono, Newsreader, Public_Sans } from "next/font/google";
 import SiteHeader from "@/components/SiteHeader";
 import "./globals.css";
 
@@ -15,9 +15,15 @@ const publicSans = Public_Sans({
   display: "swap",
 });
 
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-jetbrains-mono",
+  display: "swap",
+});
+
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className={`${newsreader.variable} ${publicSans.variable}`}>
+    <html lang="en" className={`${newsreader.variable} ${publicSans.variable} ${jetbrainsMono.variable}`}>
       <body className="flex min-h-screen flex-col font-serif">
         <SiteHeader />
         <main className="mx-auto w-full max-w-5xl flex-1 px-5 py-8">{children}</main>

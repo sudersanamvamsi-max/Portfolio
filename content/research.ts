@@ -24,6 +24,10 @@ export type ResearchProject = {
   stack: string;
   indexMargin: string[];
   sections: Section[];
+  // A sentence or two in your own words on why this problem drew you in. Not in content.md
+  // yet, so it renders as a visible TODO on the project page until filled in.
+  whyThisWork?: string;
+  whyThisWorkTodo: string;
 };
 
 export type Publication = {
@@ -46,6 +50,7 @@ export const niv: ResearchProject = {
     "First author; manuscript under review. Co-authors: Yiyang Wang (MSOE), Rahul S. Nanchal (MCW).",
   stack: "Python, SQL, scikit-survival, XGBoost, PyTorch (DeepHit), SHAP, Optuna, CUDA",
   indexMargin: ["Jul 2025 – present", "MCW", "Manuscript under review"],
+  whyThisWorkTodo: "why this problem drew you in, in your own words",
   sections: [
     {
       id: "problem",
@@ -140,12 +145,13 @@ export const niv: ResearchProject = {
 
 export const disc: ResearchProject = {
   slug: "disc-degeneration",
-  title: "Disc degeneration grading from MRI",
+  title: "A Systematic Evaluation of MRI Normalization for Multi-Site Radiomics-Based Disc Degeneration Classification",
   venue: "Medical College of Wisconsin",
   dates: "Jan 2025 – May 2025",
   status: "Co-author, medRxiv preprint (2026)",
   stack: "Python, Pyradiomics, XGBoost, scikit-learn",
   indexMargin: ["Jan 2025 – May 2025", "MCW", "medRxiv preprint"],
+  whyThisWorkTodo: "why this problem drew you in, in your own words",
   sections: [
     {
       id: "summary",
@@ -177,7 +183,7 @@ export const publications: Publication[] = [
     authors:
       "Muftuler, L. T., Drobek, A., Bukowy, J. D., Duwe, K., **Sudersanam, V.**, Harrington, J., Van Zant, E., Duenweg, S. R., & Shanbhag, D. D.",
     year: "2026",
-    title: "Predicting intervertebral disc degeneration using Pyradiomics features and XGBoost classification",
+    title: "A Systematic Evaluation of MRI Normalization for Multi-Site Radiomics-Based Disc Degeneration Classification",
     venue: "medRxiv",
     doi: "10.64898/2026.01.13.26343807",
   },
