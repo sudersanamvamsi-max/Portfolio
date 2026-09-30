@@ -5,8 +5,7 @@ export const email = "sudersanamvamsi@gmail.com";
 
 // Drop a photo in /public (e.g. /public/vamsi.jpg) and set this to
 // { src: "/vamsi.jpg", alt: "Vamsi Sudersanam" }.
-export const photo: { src: string; alt: string } | null = null;
-
+export const photo = { src: "/vamsi.jpg", alt: "Vamsi Sudersanam" };
 export const oneLiner =
   "I build machine learning for critical care: models that predict when a patient on non-invasive breathing support is about to need a ventilator, and the pipelines that make those predictions trustworthy.";
 

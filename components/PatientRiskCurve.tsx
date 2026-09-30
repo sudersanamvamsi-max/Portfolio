@@ -8,12 +8,9 @@ import { useEffect, useRef, useState } from "react";
 // not my model's output.
 const WINDOW = 30; // minutes of monitoring visible at once
 const TICK_MS = 1000; // one simulated minute arrives per second
-const X0 = 0;
-const X1 = 700;
-const END_X = 800;
-const Y_TOP = 20;
-const Y_SCALE = 155;
-const BASELINE_Y = 192;
+const SW = 100; // sparkline viewBox width
+const SH = 28; // sparkline viewBox height
+const PAD = 3;
 
 function rng(seed: number) {
   let a = seed;
@@ -86,6 +83,50 @@ function seedState() {
   return { history, vitals, target };
 }
 
+type Tile = {
+  label: string;
+  value: string;
+  status: string;
+  color: string;
+  series: number[];
+  lo: number;
+  hi: number;
+  band?: [number, number]; // target range shaded behind the line
+};
+
+function Sparkline({ tile }: { tile: Tile }) {
+  const y = (v: number) => PAD + (1 - (clamp(v, tile.lo, tile.hi) - tile.lo) / (tile.hi - tile.lo)) * (SH - 2 * PAD);
+  const pts: [number, number][] = tile.series.map((v, i) => [(i / (WINDOW - 1)) * SW, y(v)]);
+  return (
+    <svg viewBox={`0 0 ${SW} ${SH}`} preserveAspectRatio="none" aria-hidden="true" className="block h-8 w-full">
+      {tile.band && (
+        <rect x="0" y={y(tile.band[1])} width={SW} height={y(tile.band[0]) - y(tile.band[1])} fill="var(--grid)" opacity="0.6" />
+      )}
+      <path
+        d={smoothPath(pts)}
+        fill="none"
+        stroke={tile.color}
+        strokeWidth="2"
+        strokeLinecap="round"
+        vectorEffect="non-scaling-stroke"
+      />
+    </svg>
+  );
+}
+
+function riskStatus(r: number) {
+  return r >= 0.5 ? "Elevated" : r >= 0.3 ? "Moderate" : "Low";
+}
+
+function spo2Status(v: number) {
+  return v >= 94 ? "In range" : v >= 90 ? "Watch" : "Low";
+}
+
+function fio2Status(series: number[]) {
+  const d = series[series.length - 1] - series[Math.max(0, series.length - 6)];
+  return Math.abs(d) < 0.03 ? "Stable" : d > 0 ? "Rising" : "Falling";
+}
+
 export default function PatientRiskCurve() {
   const seed = useRef<ReturnType<typeof seedState> | null>(null);
   if (seed.current === null) seed.current = seedState();
@@ -114,12 +155,38 @@ export default function PatientRiskCurve() {
     return () => clearInterval(id);
   }, [running]);
 
-  const x = (i: number) => X0 + (i / (WINDOW - 1)) * (X1 - X0);
-  const y = (r: number) => Y_TOP + (1 - r) * Y_SCALE;
-  const linePoints: [number, number][] = history.map((h, i) => [x(i), y(h.risk)]);
-  const path = smoothPath(linePoints);
   const latest = history[history.length - 1];
-  const lastPoint = linePoints[linePoints.length - 1];
+  const fio2Series = history.map((h) => h.fio2);
+  const tiles: Tile[] = [
+    {
+      label: "Risk",
+      value: `${Math.round(latest.risk * 100)}%`,
+      status: riskStatus(latest.risk),
+      color: "var(--cohort-a)",
+      series: history.map((h) => h.risk),
+      lo: 0,
+      hi: 1,
+    },
+    {
+      label: "SpO2",
+      value: `${latest.spo2.toFixed(0)}%`,
+      status: spo2Status(latest.spo2),
+      color: "var(--cohort-b)",
+      series: history.map((h) => h.spo2),
+      lo: 80,
+      hi: 100,
+      band: [94, 100],
+    },
+    {
+      label: "FiO2",
+      value: `${(latest.fio2 * 100).toFixed(0)}%`,
+      status: fio2Status(fio2Series),
+      color: "var(--muted)",
+      series: fio2Series,
+      lo: 0.2,
+      hi: 0.9,
+    },
+  ];
 
   return (
     <figure>
@@ -133,23 +200,19 @@ export default function PatientRiskCurve() {
           {running ? "Pause" : "Resume"}
         </button>
       </div>
-      <svg
-        viewBox="0 0 800 200"
-        preserveAspectRatio="xMinYMid meet"
-        aria-hidden="true"
-        className="mt-2 h-24 w-full sm:h-40 md:h-52"
-      >
-        <line x1="0" y1={BASELINE_Y} x2={END_X} y2={BASELINE_Y} stroke="var(--grid)" strokeWidth="1.5" />
-        <path d={path} fill="none" stroke="var(--cohort-a)" strokeWidth="3" strokeLinecap="round" />
-        {lastPoint && <circle cx={lastPoint[0]} cy={lastPoint[1]} r={4.5} fill="var(--cohort-a)" />}
-      </svg>
-      <figcaption className="mt-2 max-w-measure font-sans text-sm text-muted">
-        {latest && (
-          <>
-            Simulated risk {Math.round(latest.risk * 100)}%, SpO2 {latest.spo2.toFixed(0)}%, FiO2{" "}
-            {(latest.fio2 * 100).toFixed(0)}%.{" "}
-          </>
-        )}
+      <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-3">
+        {tiles.map((t) => (
+          <div key={t.label} className="border border-grid p-4">
+            <div className="flex items-baseline justify-between gap-2 font-sans text-sm">
+              <span className="text-muted">{t.label}</span>
+              <span className="text-muted">{t.status}</span>
+            </div>
+            <p className="mt-1 mb-2 font-sans text-2xl font-medium leading-tight">{t.value}</p>
+            <Sparkline tile={t} />
+          </div>
+        ))}
+      </div>
+      <figcaption className="mt-3 max-w-measure font-sans text-sm text-muted">
         A synthetic patient generated in code, updated every second. Risk is a toy function of
         the vitals for illustration, not my model&apos;s output, and no value is patient data.
       </figcaption>
