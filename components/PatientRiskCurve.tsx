@@ -8,6 +8,11 @@ import { useEffect, useRef, useState } from "react";
 // not my model's output.
 const WINDOW = 30; // minutes of monitoring visible at once
 const TICK_MS = 1000; // one simulated minute arrives per second
+const CX1 = 700; // risk curve plot area (viewBox 800x200)
+const CEND = 800;
+const CTOP = 20;
+const CSCALE = 155;
+const CBASE = 192;
 const SW = 100; // sparkline viewBox width
 const SH = 28; // sparkline viewBox height
 const PAD = 3;
@@ -188,6 +193,11 @@ export default function PatientRiskCurve() {
     },
   ];
 
+  const cx = (i: number) => (i / (WINDOW - 1)) * CX1;
+  const cy = (r: number) => CTOP + (1 - r) * CSCALE;
+  const curve: [number, number][] = history.map((h, i) => [cx(i), cy(h.risk)]);
+  const tip = curve[curve.length - 1];
+
   return (
     <figure>
       <div className="flex items-baseline justify-between gap-4">
@@ -212,6 +222,17 @@ export default function PatientRiskCurve() {
           </div>
         ))}
       </div>
+      <svg
+        viewBox="0 0 800 200"
+        preserveAspectRatio="xMinYMid meet"
+        role="img"
+        aria-label={`Simulated risk over the last ${WINDOW} minutes, currently ${Math.round(latest.risk * 100)}%`}
+        className="mt-4 h-24 w-full sm:h-40 md:h-52"
+      >
+        <line x1="0" y1={CBASE} x2={CEND} y2={CBASE} stroke="var(--grid)" strokeWidth="1.5" />
+        <path d={smoothPath(curve)} fill="none" stroke="var(--cohort-a)" strokeWidth="3" strokeLinecap="round" />
+        <circle cx={tip[0]} cy={tip[1]} r={4.5} fill="var(--cohort-a)" />
+      </svg>
       <figcaption className="mt-3 max-w-measure font-sans text-sm text-muted">
         A synthetic patient generated in code, updated every second. Risk is a toy function of
         the vitals for illustration, not my model&apos;s output, and no value is patient data.
