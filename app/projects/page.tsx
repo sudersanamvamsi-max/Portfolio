@@ -1,7 +1,11 @@
+import Inline from "@/components/Inline";
 import MarginRow from "@/components/MarginRow";
 import ProjectMedia from "@/components/ProjectMedia";
 import StepDivider from "@/components/StepDivider";
 import { projectsFraming, projects } from "@/content/projects";
+import { pageMetadata } from "@/lib/meta";
+
+export const metadata = pageMetadata("Projects", "Production test automation at Real Time Automation, a full-stack deep RL training platform, a GPT built from scratch, and a repair workflow automation.", "/projects");
 
 export default function Projects() {
   return (
@@ -11,7 +15,7 @@ export default function Projects() {
 
       <section aria-label="Projects" className="mt-12 flex flex-col gap-12">
         {projects.map((p, i) => (
-          <div key={p.slug} className="flex flex-col gap-12">
+          <div key={p.slug} id={p.slug} className="flex scroll-mt-6 flex-col gap-12">
             {i > 0 && <StepDivider />}
             <MarginRow
               margin={
@@ -23,7 +27,9 @@ export default function Projects() {
             >
               <ProjectMedia project={p} />
               <h2 className="mt-5 text-2xl font-medium leading-snug">{p.title}</h2>
-              <p className="mt-2">{p.summary}</p>
+              <p className="mt-2">
+                <Inline text={p.summary} />
+              </p>
               {p.built && (
                 <ul className="mt-4 flex list-disc flex-col gap-3 pl-5">
                   {p.built.map((item) => (

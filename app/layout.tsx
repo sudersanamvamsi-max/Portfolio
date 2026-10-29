@@ -1,6 +1,8 @@
+import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { JetBrains_Mono, Newsreader, Public_Sans } from "next/font/google";
 import SiteHeader from "@/components/SiteHeader";
+import { pageMetadata, siteUrl } from "@/lib/meta";
 import "./globals.css";
 
 const newsreader = Newsreader({
@@ -20,6 +22,16 @@ const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
   display: "swap",
 });
+
+export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
+  ...pageMetadata(
+    null,
+    "Clinical machine learning researcher and software engineer: survival models for ICU patients on non-invasive respiratory support, and the software around them.",
+    "/",
+  ),
+  icons: { icon: "/favicon.ico", apple: "/apple-touch-icon.png" },
+};
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (

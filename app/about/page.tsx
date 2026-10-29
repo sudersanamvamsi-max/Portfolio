@@ -1,20 +1,28 @@
 import CodeWindow from "@/components/CodeWindow";
 import MarginRow from "@/components/MarginRow";
 import {
+  aboutIntro,
+  aboutIntroTodo,
   bio,
   certifications,
   goals,
   interests,
   interestsTodo,
-  oneLiner,
   skills,
 } from "@/content/site";
+import { pageMetadata } from "@/lib/meta";
+
+export const metadata = pageMetadata("About", "Computer Science graduate from MSOE: clinical ML research on ICU data at the Medical College of Wisconsin, plus skills, certifications and interests.", "/about");
 
 export default function About() {
   return (
     <>
       <h1 className="text-4xl font-medium leading-tight">About me</h1>
-      <p className="mt-3 max-w-measure">{oneLiner}</p>
+      <p className="mt-3 max-w-measure">
+        {aboutIntro ?? (
+          <span className="font-sans text-sm text-muted">TODO: {aboutIntroTodo}</span>
+        )}
+      </p>
       <p className="mt-3 max-w-measure">{bio}</p>
       <p className="mt-3 max-w-measure">{goals}</p>
       <div className="mt-6">

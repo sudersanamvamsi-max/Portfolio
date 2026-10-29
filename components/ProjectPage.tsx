@@ -18,11 +18,13 @@ export default function ProjectPage({ project }: { project: ResearchProject }) {
         <Link href="/research">Back to research</Link>
       </p>
       <h1 className="mt-6 max-w-measure text-4xl font-medium leading-tight">{project.title}</h1>
-      <p className="mt-3 max-w-measure">
-        {project.whyThisWork ?? (
-          <span className="font-sans text-sm text-muted">TODO: {project.whyThisWorkTodo}</span>
-        )}
-      </p>
+      {(project.whyThisWork || project.whyThisWorkTodo) && (
+        <p className="mt-3 max-w-measure">
+          {project.whyThisWork ?? (
+            <span className="font-sans text-sm text-muted">TODO: {project.whyThisWorkTodo}</span>
+          )}
+        </p>
+      )}
       <div className="mt-8">
         <MarginRow
           margin={

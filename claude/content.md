@@ -7,7 +7,7 @@
 - [ ] **Disc degeneration preprint title.** The two resumes list different titles for the same DOI. Use the title exactly as it appears on medRxiv.
 - [ ] **AWS Cloud Practitioner date.** Resumes say August 2026; confirm against the certificate.
 - [ ] **eICU and MIMIC-IV status.** The paper is SICdb-only. Currently working towards validating the model with eICU and MIMIC-IV 
-- [ ] **Manuscript status.** Under review. Decide whether to name co-authors and the title publicly before acceptance, or list it as "manuscript under review, details on request."
+- [ ] **Manuscript status.** Manuscript in preparation for submission (being restructured for a new journal). Decide whether to name co-authors and the title publicly before submission, or list it as "manuscript in preparation, details on request."
 
 ---
 
@@ -15,7 +15,7 @@
 
 - **Name:** Vamsi Sudersanam
 - **One-liner:** I build machine learning for critical care: models that predict when a patient on non-invasive breathing support is about to need a ventilator, and the pipelines that make those predictions trustworthy.
-- **Short bio:** Computer Science graduate (Milwaukee School of Engineering, 2026). First author on a critical-care survival-analysis manuscript under review and co-author on a radiomics preprint, from research at the Medical College of Wisconsin. Also a software engineer: production test automation at Real Time Automation and a full-stack deep RL training platform. Applying to PhD programs in biomedical informatics for Fall 2027.
+- **Short bio:** Computer Science graduate (Milwaukee School of Engineering, 2026). First author on a critical-care survival-analysis manuscript in preparation for submission and co-author on a radiomics preprint, from research at the Medical College of Wisconsin. Also a software engineer: production test automation at Real Time Automation and a full-stack deep RL training platform. Applying to PhD programs in biomedical informatics for Fall 2027.
 - **Contact:** sudersanamvamsi@gmail.com · github.com/Vamsichris04 · linkedin.com/in/sudersanam
 
 ## Research
@@ -23,7 +23,7 @@
 ### Predicting failure of non-invasive respiratory support
 
 - **Where / when:** Medical College of Wisconsin and MSOE, Jul 2025 – present
-- **Status:** First author; manuscript under review. Co-authors: Yiyang Wang (MSOE), Rahul S. Nanchal (MCW).
+- **Status:** First author; manuscript in preparation for submission. Co-authors: Yiyang Wang (MSOE), Rahul S. Nanchal (MCW).
 - **Stack:** Python, SQL, scikit-survival, XGBoost, PyTorch (DeepHit), SHAP, Optuna, CUDA
 
 **The problem.** When a patient in the ICU has acute hypoxemic respiratory failure, clinicians first try non-invasive support: high-flow nasal cannula or non-invasive ventilation. It often fails, and the timing of the switch to a ventilator matters in both directions. Delaying intubation in a patient who is failing is associated with worse outcomes; intubating a patient who would have recovered exposes them to the risks of an invasive airway. Existing tools are either single thresholds like the ROX index or general severity scores like SAPS-3, and neither integrates the full clinical picture over time.
@@ -32,15 +32,14 @@
 
 - Cohort: 8,489 adults started on non-invasive support for acute hypoxemic respiratory failure, drawn from SICdb (27,000+ ICU admissions, 2013–2021). 2,589 (30.5%) were intubated within 72 hours. Failure happens early: 77.1% of intubations occurred within the first 2 hours.
 - Every feature window is anchored to t0, the moment support starts, and bounded to prevent temporal leakage. Feature selection combined a missingness filter, domain-informed exclusions, and iterative VIF removal.
-- Three experiments: prediction at t0 using only prior data; the same design with the blood gas window extended 30 minutes, which is an early-reassessment model rather than a baseline one; and a landmark model refit at 2, 4, 8, and 12 hours for patients still on support.
-- Eighteen models in total, across Random Survival Forest, XGBoost AFT, XGBoost Cox, and DeepHit, evaluated with C-index, time-dependent AUC, Brier score and IBS, risk tertiles with log-rank tests, permutation importance, and SHAP.
+- Two experiments: prediction at t0 using only prior data; and the same design with the blood gas window extended 30 minutes, which is an early-reassessment model rather than a baseline one.
+- Four model families (Random Survival Forest, XGBoost AFT, XGBoost Cox, DeepHit) across both experiments, evaluated with C-index, time-dependent AUC, Brier score and IBS, risk tertiles with log-rank tests, permutation importance, and SHAP.
 
 **Results.**
 
 - At t0, XGBoost AFT reached 0.914 AUROC (95% CI 0.898–0.930) and 0.868 C-index, with 86.5% sensitivity and 83.8% specificity at the Youden-optimal threshold. RSF and DeepHit were close behind, and the confidence intervals overlapped, so no model is statistically distinguishable as best.
 - Risk tertiles separated cleanly: high-risk patients were intubated within 2 hours about 60% of the time, low-risk patients about 1%.
 - The ROX index at its published cutoff of 4.88 caught 3.6% of patients who went on to be intubated in this cohort. As a continuous predictor it reached 0.555 AUROC. The multivariable models were substantially better.
-- The landmark models held a C-index of roughly 0.78–0.84 out to 12 hours, with XGBoost Cox the most stable. The ROX index became more useful at later landmarks, which supports monitoring it serially rather than reading it once.
 
 **The finding I didn't expect.** The strongest predictors under strict pre-t0 extraction were not measured physiology but missingness itself: whether a ventilator trigger-sensitivity setting was recorded, and whether a blood gas was drawn before support started. Absence of a pre-t0 blood gas was associated with *higher* risk, which is the opposite of the "they weren't sick enough to test" hypothesis. Rapid deterioration plausibly leaves no time to draw one. The trigger-sensitivity indicator is partly a proxy for modality, since HFNC has no such setting, so it mixes treatment type with acuity. These models exploit documentation patterns specific to one hospital system, and external validation is needed before claiming they generalize.
 
@@ -56,8 +55,8 @@
 
 ### Manuscripts
 
-- Muftuler, L. T., Drobek, A., Bukowy, J. D., Duwe, K., **Sudersanam, V.**, Harrington, J., Van Zant, E., Duenweg, S. R., & Shanbhag, D. D. (2026). Predicting intervertebral disc degeneration using Pyradiomics features and XGBoost classification. *medRxiv.* DOI: 10.64898/2026.01.13.26343807
-- **Sudersanam, V. K.**, Wang, Y., & Nanchal, R. S. A Systematic Evaluation of MRI Normalization for Multi-Site Radiomics-Based Disc Degeneration Classification. *Manuscript*
+- Muftuler, L. T., Drobek, A., Bukowy, J. D., Duwe, K., **Sudersanam, V.**, Harrington, J., Van Zant, E., Duenweg, S. R., & Shanbhag, D. D. (2026). A Systematic Evaluation of MRI Normalization for Multi-Site Radiomics-Based Disc Degeneration Classification. *medRxiv.* DOI: 10.64898/2026.01.13.26343807
+- **Sudersanam, V. K.**, Wang, Y., & Nanchal, R. S. Predicting Failure of Non-Invasive Respiratory Support in Acute Hypoxemic Respiratory Failure Using the Salzburg Intensive Care Database. *Manuscript in preparation for submission*
 
 ## Engineering
 
@@ -95,7 +94,7 @@
 
 ## Skills (short form for the site)
 
-- **ML and statistics:** survival analysis (RSF, XGBoost AFT/Cox, DeepHit), landmark modeling, calibration and discrimination metrics, SHAP, Bayesian optimization, deep learning, reinforcement learning
+- **ML and statistics:** survival analysis (RSF, XGBoost AFT/Cox, DeepHit), calibration and discrimination metrics, SHAP, Bayesian optimization, deep learning, reinforcement learning
 - **Clinical data:** SICdb, MIMIC-IV, eICU; cohort extraction, time-anchored feature engineering, missing-data handling
 - **Languages:** Python, SQL, TypeScript, Java, C/C++, R
 - **Tools:** PyTorch, FastAPI, Next.js/React, Docker, Git, AWS, Databricks, MLflow, Azure DevOps
