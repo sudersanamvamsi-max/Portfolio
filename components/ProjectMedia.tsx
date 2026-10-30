@@ -1,10 +1,13 @@
 import type { Project } from "@/content/projects";
+import LoopVideo from "@/components/LoopVideo";
 
 export default function ProjectMedia({ project }: { project: Project }) {
   const { media, mediaTodo } = project;
   return (
     <div className="aspect-video w-full max-w-[68ch] overflow-hidden rounded-lg border border-grid bg-grid/30">
-      {media ? (
+      {media?.video ? (
+        <LoopVideo src={media.video} poster={media.still} label={media.alt} />
+      ) : media ? (
         <picture>
           {media.still && (
             <source media="(prefers-reduced-motion: reduce)" srcSet={media.still} />

@@ -2,6 +2,7 @@
 // "TODO" strings render visibly on the page.
 //
 // Thumbnails: drop a file in /public/projects/ and set `media` (e.g. src: "/projects/rl-studio.gif").
+// For a clip, set `video` (e.g. "/projects/rl-studio.mp4"); `src` is then unused, `still` is the poster.
 // Projects without `media` show a labelled placeholder.
 
 export type Project = {
@@ -13,7 +14,7 @@ export type Project = {
   summary: string;
   built?: string[];
   // `still` is a static frame shown to visitors who prefer reduced motion.
-  media?: { src: string; alt: string; still?: string };
+  media?: { src: string; alt: string; still?: string; video?: string };
   mediaTodo: string;
   link?: { href: string; label: string };
   linkTodo?: string;
