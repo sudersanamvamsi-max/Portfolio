@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { cvHref } from "@/content/site";
 
 const TABS = [
   { href: "/about", label: "About me" },
@@ -42,6 +43,14 @@ export default function SiteHeader() {
             </Link>
           );
         })}
+        <a
+          href={cvHref}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="pb-0.5 text-muted no-underline hover:text-ink"
+        >
+          CV
+        </a>
       </nav>
     </header>
   );

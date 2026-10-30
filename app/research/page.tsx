@@ -3,6 +3,9 @@ import Inline from "@/components/Inline";
 import MarginRow from "@/components/MarginRow";
 import StepDivider from "@/components/StepDivider";
 import { projects, publications, researchFraming } from "@/content/research";
+import { pageMetadata } from "@/lib/meta";
+
+export const metadata = pageMetadata("Research", "First author on a critical-care survival-analysis manuscript and co-author on a radiomics preprint, from research at the Medical College of Wisconsin.", "/research");
 
 export default function Research() {
   return (
@@ -21,6 +24,7 @@ export default function Research() {
             <h2 className="text-2xl font-medium leading-snug">
               <Link href={`/research/${p.slug}`}>{p.title}</Link>
             </h2>
+            <p className="mt-2 max-w-measure">{p.indexSummary}</p>
           </MarginRow>
         ))}
       </section>

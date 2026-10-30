@@ -42,20 +42,8 @@ export const projects: Project[] = [
     ],
     mediaTodo: "short screen recording or GIF of training and live playback",
     linkTodo: "link to repo or demo",
-    whyBuiltTodo: "why you took this on / what you enjoyed about building it",
-  },
-  {
-    slug: "gpt-from-scratch",
-    title: "GPT from scratch",
-    dates: "Sep 2026",
-    stack: "Python, PyTorch",
-    summary:
-      "A GPT-style decoder-only transformer implemented from scratch in PyTorch (token and positional embeddings, multi-head causal self-attention, pre-norm residual blocks, feed-forward layers with dropout) without high-level transformer libraries.",
-    built: [
-      "Trained character-level with AdamW, tracking train/validation loss to diagnose overfitting; scaled from a bigram baseline to a multi-layer transformer.",
-    ],
-    mediaTodo: "a sample of generated text and a loss-curve image",
-    linkTodo: "GitHub repo URL",
+    whyBuilt:
+      "I chose RL Studio for my team because reinforcement learning is showing up in almost every field, yet its jargon scares a lot of people away before they ever try it. We built a platform where anyone, technical or not, can learn by doing: configure hyperparameters, train real agents, and get help from a built-in LLM assistant and plain-language pop-ups for every term.",
     whyBuiltTodo: "why you took this on / what you enjoyed about building it",
   },
   {
@@ -64,11 +52,29 @@ export const projects: Project[] = [
     dates: "May 2025 – May 2026",
     role: "Software Engineer Intern, Real Time Automation",
     summary:
-      "Designed an unattended nightly pipeline (crontab + Allure on Azure DevOps) running 300+ regression tests across 7 industrial protocols and publishing trend reports, replacing manual test runs for 30+ engineers and enabling failure analysis across releases.",
+      "Designed an unattended nightly pipeline (crontab + Allure) running 300+ regression tests across 7 industrial protocols and publishing trend reports to engineers' network drives, viewable in Azure DevOps, replacing manual test runs for 30+ engineers and enabling failure analysis across releases.",
     built: [
       "Wrote the majority of the regression suite (MQTT, HTTP/S, SQL, FTP, WebSockets, email, Modbus, PLC read/write, Selenium front-end checks) for the company's IoT Historian product; took part in weekly code review on Azure DevOps.",
     ],
     mediaTodo: "a screenshot of an Allure trend report with no company data, or a diagram of the nightly flow",
+    whyBuilt:
+      "The Historian had 300+ tests and a full run took over six hours, so every code change meant a long wait to find out whether it broke something. I built a pipeline that runs the full suite overnight (8 pm to 6 am), stores results in MongoDB, and publishes Allure reports to each engineer's network drive and to Azure DevOps, so the team can see exactly what failed, rerun individual tests, and filter by product area.",
+    whyBuiltTodo: "why you took this on / what you enjoyed about building it",
+  },
+  {
+    slug: "gpt-from-scratch",
+    title: "GPT from scratch",
+    dates: "Sep 2026",
+    stack: "Python, PyTorch",
+    summary:
+      "A GPT-style decoder-only transformer implemented from scratch in PyTorch, following Andrej Karpathy's *Let's build GPT* lecture (token and positional embeddings, multi-head causal self-attention, pre-norm residual blocks, feed-forward layers with dropout) without high-level transformer libraries.",
+    built: [
+      "Trained character-level with AdamW, tracking train/validation loss to diagnose overfitting; scaled from a bigram baseline to a multi-layer transformer.",
+    ],
+    mediaTodo: "a sample of generated text and a loss-curve image",
+    linkTodo: "GitHub repo URL",
+    whyBuilt:
+      "I wanted to actually understand how transformers work, the algorithm underneath every LLM, instead of just calling everything \"AI\" or \"GPT.\"",
     whyBuiltTodo: "why you took this on / what you enjoyed about building it",
   },
   {
@@ -78,8 +84,10 @@ export const projects: Project[] = [
     role: "Student Manager, MSOE IT Help Desk",
     stack: "Power Automate, SharePoint",
     summary:
-      "Built a Power Automate + SharePoint pipeline that takes laptop asset tags, pulls device metadata from a central tracker, and drafts vendor repair emails, saving 3–4 hours of manual work each week. Managed scheduling, training, and device QA for 20+ student technicians.",
+      "Built a Power Automate + SharePoint pipeline that takes laptop asset tags, pulls device metadata from a central tracker, and drafts vendor repair emails, saving 4 hours of manual work each week. Managed scheduling, training, and device QA for 20+ student technicians.",
     mediaTodo: "a screenshot or short clip of the flow running on dummy asset tags",
+    whyBuilt:
+      "Automating vendor repair requests saved four hours of manual work every week. It also gave me a reason to learn a new stack, and I put the time it freed up into my research.",
     whyBuiltTodo: "why you took this on / what you enjoyed about building it",
   },
 ];

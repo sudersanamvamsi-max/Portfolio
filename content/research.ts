@@ -23,11 +23,12 @@ export type ResearchProject = {
   status: string;
   stack: string;
   indexMargin: string[];
+  indexSummary: string;
   sections: Section[];
-  // A sentence or two in your own words on why this problem drew you in. Not in content.md
-  // yet, so it renders as a visible TODO on the project page until filled in.
+  // A sentence or two in your own words on why this problem drew you in. If neither field
+  // is set, the project page shows nothing in that slot.
   whyThisWork?: string;
-  whyThisWorkTodo: string;
+  whyThisWorkTodo?: string;
 };
 
 export type Publication = {
@@ -39,7 +40,7 @@ export type Publication = {
 };
 
 export const researchFraming =
-  "First author on a critical-care survival-analysis manuscript under review and co-author on a radiomics preprint, from research at the Medical College of Wisconsin.";
+  "First author on a critical-care survival-analysis manuscript in preparation for submission and co-author on a radiomics preprint, from research at the Medical College of Wisconsin.";
 
 export const niv: ResearchProject = {
   slug: "niv",
@@ -47,10 +48,13 @@ export const niv: ResearchProject = {
   venue: "Medical College of Wisconsin and MSOE",
   dates: "Jul 2025 – present",
   status:
-    "First author; manuscript under review. Co-authors: Yiyang Wang (MSOE), Rahul S. Nanchal (MCW).",
+    "First author; manuscript in preparation for submission. Co-authors: Yiyang Wang (MSOE), Rahul S. Nanchal (MCW).",
   stack: "Python, SQL, scikit-survival, XGBoost, PyTorch (DeepHit), SHAP, Optuna, CUDA",
-  indexMargin: ["Jul 2025 – present", "MCW", "Manuscript under review"],
-  whyThisWorkTodo: "why this problem drew you in, in your own words",
+  indexMargin: ["Jul 2025 – present", "MCW", "Manuscript in preparation for submission"],
+  indexSummary:
+    "Survival models that predict, at the start of non-invasive support, which ICU patients will need a ventilator within 72 hours.",
+  whyThisWork:
+    "Non-invasive support fails often, and a large number of patients are affected by that every day. The data made it even more interesting: the Salzburg ICU database is massive and documented in German.",
   sections: [
     {
       id: "problem",
@@ -75,8 +79,8 @@ export const niv: ResearchProject = {
           items: [
             "Cohort: 8,489 adults started on non-invasive support for acute hypoxemic respiratory failure, drawn from SICdb (27,000+ ICU admissions, 2013–2021). 2,589 (30.5%) were intubated within 72 hours. Failure happens early: 77.1% of intubations occurred within the first 2 hours.",
             "Every feature window is anchored to t0, the moment support starts, and bounded to prevent temporal leakage. Feature selection combined a missingness filter, domain-informed exclusions, and iterative VIF removal.",
-            "Three experiments: prediction at t0 using only prior data; the same design with the blood gas window extended 30 minutes, which is an early-reassessment model rather than a baseline one; and a landmark model refit at 2, 4, 8, and 12 hours for patients still on support.",
-            "Eighteen models in total, across Random Survival Forest, XGBoost AFT, XGBoost Cox, and DeepHit, evaluated with C-index, time-dependent AUC, Brier score and IBS, risk tertiles with log-rank tests, permutation importance, and SHAP.",
+            "Two experiments: prediction at t0 using only prior data; and the same design with the blood gas window extended 30 minutes, which is an early-reassessment model rather than a baseline one.",
+            "Four model families (Random Survival Forest, XGBoost AFT, XGBoost Cox, DeepHit) across both experiments, evaluated with C-index, time-dependent AUC, Brier score and IBS, risk tertiles with log-rank tests, permutation importance, and SHAP.",
           ],
         },
       ],
@@ -101,13 +105,9 @@ export const niv: ResearchProject = {
               { text: "86.5%" },
               { text: "83.8%" },
             ],
-            [{ text: "RSF" }, { text: "TODO: not in content.md", colSpan: 4 }],
-            [{ text: "DeepHit" }, { text: "TODO: not in content.md", colSpan: 4 }],
-            [
-              { text: "ROX index (continuous)" },
-              { text: "0.555" },
-              { text: "TODO: not in content.md", colSpan: 3 },
-            ],
+            [{ text: "RSF" }, { text: "—", colSpan: 4 }],
+            [{ text: "DeepHit" }, { text: "—", colSpan: 4 }],
+            [{ text: "ROX index (continuous)" }, { text: "0.555" }, { text: "—", colSpan: 3 }],
           ],
         },
         { kind: "h3", text: "The ROX baseline" },
@@ -115,12 +115,11 @@ export const niv: ResearchProject = {
           kind: "p",
           text: "The ROX index at its published cutoff of 4.88 caught 3.6% of patients who went on to be intubated in this cohort. As a continuous predictor it reached 0.555 AUROC. The multivariable models were substantially better.",
         },
-        { kind: "h3", text: "Risk tertiles and landmark models" },
+        { kind: "h3", text: "Risk tertiles" },
         {
           kind: "ul",
           items: [
             "Risk tertiles separated cleanly: high-risk patients were intubated within 2 hours about 60% of the time, low-risk patients about 1%.",
-            "The landmark models held a C-index of roughly 0.78–0.84 out to 12 hours, with XGBoost Cox the most stable. The ROX index became more useful at later landmarks, which supports monitoring it serially rather than reading it once.",
           ],
         },
       ],
@@ -151,7 +150,8 @@ export const disc: ResearchProject = {
   status: "Co-author, medRxiv preprint (2026)",
   stack: "Python, Pyradiomics, XGBoost, scikit-learn",
   indexMargin: ["Jan 2025 – May 2025", "MCW", "medRxiv preprint"],
-  whyThisWorkTodo: "why this problem drew you in, in your own words",
+  indexSummary:
+    "Built the radiomics pipeline and benchmarked MRI normalization strategies so features hold up across sites and scanners.",
   sections: [
     {
       id: "summary",
@@ -190,7 +190,7 @@ export const publications: Publication[] = [
   {
     authors: "**Sudersanam, V. K.**, Wang, Y., & Nanchal, R. S.",
     title:
-      "A Systematic Evaluation of MRI Normalization for Multi-Site Radiomics-Based Disc Degeneration Classification",
-    venue: "Manuscript",
+      "Predicting Failure of Non-Invasive Respiratory Support in Acute Hypoxemic Respiratory Failure Using the Salzburg Intensive Care Database",
+    venue: "Manuscript in preparation for submission",
   },
 ];

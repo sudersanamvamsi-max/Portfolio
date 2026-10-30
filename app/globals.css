@@ -94,3 +94,25 @@
     opacity: 1;
   }
 }
+
+/* Typed JSON cursor: a block that blinks only when motion is allowed. */
+.typed-cursor {
+  display: inline-block;
+  width: 0.55ch;
+  height: 1.1em;
+  margin-left: 1px;
+  vertical-align: text-bottom;
+  background: #9fb0bd;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .typed-cursor {
+    animation: cursor-blink 1.06s steps(1) infinite;
+  }
+}
+
+@keyframes cursor-blink {
+  50% {
+    opacity: 0;
+  }
+}

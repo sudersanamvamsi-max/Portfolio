@@ -19,7 +19,7 @@ Personal site for a clinical ML researcher who also ships software. Read this fi
 ## Content rules (non-negotiable)
 
 1. **Never invent or inflate.** Every number, title, date, and claim must come from `content.md`. If something isn't there, leave a visible `TODO` rather than guessing.
-2. **Honest status language.** The NIV manuscript is *under review*, not published or peer-reviewed. The disc degeneration paper is a *medRxiv preprint*.
+2. **Honest status language.** The NIV manuscript is *in preparation for submission* (being restructured for a new journal), not submitted, published or peer-reviewed. The disc degeneration paper is a *medRxiv preprint*.
 3. **No patient data, ever.** MIMIC-IV, eICU, SICdb, and AmsterdamUMCdb are under data use agreements. No rows, samples, screenshots of tables, or per-patient plots. Any demo uses synthetic data generated in code, and says so on screen.
 4. **No phone number on the site.** Email, GitHub, and LinkedIn only.
 5. Vamsi prefers refining his own wording. When editing copy, make the smallest change that works and keep his phrasing.
@@ -69,12 +69,14 @@ On mobile, the margin column collapses above each entry.
 
 ## Pages
 
-1. `/`: hero, two paths, 2–3 featured items, contact line.
-2. `/research`: NIV project, disc degeneration project, publications list.
-3. `/engineering`: RL Studio, GPT from scratch, RTA regression pipeline, MSOE IT automation.
-4. `/research/niv`, `/engineering/rl-studio` etc.: project pages written as problem → approach → results → what I learned.
-5. `/cv`: links to downloadable PDFs (Research CV and ML resume), placed in `/public/cv/`.
-6. Later: `/demo/survival`: interactive survival demo on synthetic data (see phase 4).
+1. `/`: hero, Research and Projects links, featured items (NIV, RL Studio), contact line.
+2. `/research`: NIV project, disc degeneration project (each with a one-sentence summary), publications list.
+3. `/projects`: RL Studio, regression pipeline, GPT from scratch, repair workflow. One page, no per-project pages; each project has an anchor (`/projects#rl-studio`).
+4. `/research/niv`, `/research/disc-degeneration`: project pages written as problem → approach → results → what I learned.
+5. `/about`: intro, bio, code window, skills, certifications, interests.
+6. `/contact`: what I'm open to, Formspree form with mailto fallback.
+7. CV: a nav item opening `/public/cv/vamsi-sudersanam-cv.pdf` in a new tab (no `/cv` page).
+8. Later: `/demo/survival`: interactive survival demo on synthetic data (see phase 4).
 
 ## Build order
 
@@ -83,7 +85,7 @@ Work one phase per session. Show Vamsi the diff and a screenshot before moving o
 1. Scaffold Next.js + Tailwind, set up tokens (CSS variables), fonts, light/dark theme, base layout with margin column.
 2. Home page with the hero curve animation.
 3. Research and Engineering index pages and project pages from `content.md`.
-4. Synthetic survival demo. Mirror the structure of the NIV study without using any of its data: generate three synthetic risk tertiles in the browser, draw their Kaplan-Meier curves with censoring ticks over a 2-hour horizon, and let the user move a landmark time (2, 4, 8, 12 hours) to see the at-risk cohort shrink as events are removed. Label it clearly as synthetic illustration, not model output.
+4. Synthetic survival demo. Mirror the structure of the NIV study without using any of its data: generate three synthetic risk tertiles in the browser, draw their Kaplan-Meier curves with censoring ticks over a 2-hour horizon, and let the user move a "time since support started" slider across the 2-hour horizon to see the at-risk cohort shrink as events are removed. Keep it generic and synthetic; do not reference the models or results of the NIV paper. Label it clearly as synthetic illustration, not model output.
 5. Polish: responsive checks down to 360px, keyboard focus states, metadata/Open Graph tags, favicon, Lighthouse pass, deploy.
 
 ## Quality floor
