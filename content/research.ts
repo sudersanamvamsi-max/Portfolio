@@ -187,10 +187,4 @@ export const publications: Publication[] = [
     venue: "medRxiv",
     doi: "10.64898/2026.01.13.26343807",
   },
-  {
-    authors: "**Sudersanam, V. K.**, Wang, Y., & Nanchal, R. S.",
-    title:
-      "Predicting Failure of Non-Invasive Respiratory Support in Acute Hypoxemic Respiratory Failure Using the Salzburg Intensive Care Database",
-    venue: "Manuscript in preparation for submission",
-  },
 ];

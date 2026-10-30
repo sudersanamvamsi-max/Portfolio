@@ -1,29 +1,33 @@
 import PatientRiskCurve from "@/components/PatientRiskCurve";
 import Photo from "@/components/Photo";
-import Link from "next/link";
-import { niv } from "@/content/research";
-import { projects } from "@/content/projects";
-import { email, goals, oneLiner, passion, passionTodo } from "@/content/site";
-
-const rlStudio = projects.find((p) => p.slug === "rl-studio")!;
+import TypedJson from "@/components/TypedJson";
+import {
+  certVerifyTodo,
+  certVerifyUrl,
+  goals,
+  oneLiner,
+  passion,
+  passionTodo,
+  presenting,
+  presentingText,
+  presentingTextTodo,
+  skillsJson,
+  skillsJsonTodo,
+} from "@/content/site";
 
 export default function Home() {
   return (
     <section>
       <div className="flex flex-col-reverse gap-8 md:flex-row md:items-center md:gap-12">
         <div className="max-w-measure">
-          <h1 className="text-4xl font-medium leading-tight md:text-5xl">Vamsi Sudersanam</h1>
-          <p className="mt-3">{oneLiner}</p>
+          <h1 className="sr-only">Vamsi Sudersanam</h1>
+          <p>{oneLiner}</p>
           <p className="mt-3">{goals}</p>
           {passion ? (
             <p className="mt-3">{passion}</p>
           ) : (
             <p className="mt-3 font-sans text-sm text-muted">TODO: {passionTodo}</p>
           )}
-          <p className="mt-5 flex gap-6 font-sans">
-            <Link href="/research">Research</Link>
-            <Link href="/projects">Projects</Link>
-          </p>
         </div>
         <Photo />
       </div>
@@ -31,31 +35,46 @@ export default function Home() {
         <PatientRiskCurve />
       </div>
 
-      <section aria-labelledby="featured" className="mt-12 max-w-measure">
-        <h2 id="featured" className="text-2xl font-medium leading-snug">
-          Featured
-        </h2>
-        <ul className="mt-4 flex flex-col gap-6">
-          <li>
-            <h3 className="text-xl font-medium">
-              <Link href="/research/niv">{niv.title}</Link>
-            </h3>
-            <p className="mt-1">{niv.indexSummary}</p>
-          </li>
-          <li>
-            <h3 className="text-xl font-medium">
-              <Link href={`/projects#${rlStudio.slug}`}>{rlStudio.title}</Link>
-            </h3>
-            <p className="mt-1">{rlStudio.summary}</p>
-          </li>
-        </ul>
-      </section>
+      <figure className="mt-10 max-w-[68ch]">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={presenting.src}
+          alt={presenting.alt}
+          loading="lazy"
+          decoding="async"
+          className="aspect-[4/3] w-full rounded-lg border border-grid object-cover"
+        />
+        <figcaption className="mt-3 text-base">
+          {presentingText ?? (
+            <span className="font-sans text-sm text-muted">TODO: {presentingTextTodo}</span>
+          )}
+        </figcaption>
+      </figure>
 
-      <p className="mt-12 max-w-measure">
-        <a href={`mailto:${email}`}>{email}</a>
-        {" · "}
-        <Link href="/contact">Get in touch</Link>
-      </p>
+      <section aria-labelledby="skills" className="mt-12">
+        <h2 id="skills" className="text-2xl font-medium leading-snug">
+          Skills
+        </h2>
+        <div className="mt-4">
+          {skillsJson ? (
+            <TypedJson
+              data={skillsJson}
+              label="Skills and certifications as JSON"
+              caption={
+                certVerifyUrl ? (
+                  <a href={certVerifyUrl} target="_blank" rel="noopener noreferrer" className="underline">
+                    AWS certifications: verify on Credly
+                  </a>
+                ) : (
+                  <>AWS certifications: verify on Credly (TODO: {certVerifyTodo})</>
+                )
+              }
+            />
+          ) : (
+            <p className="font-sans text-sm text-muted">TODO: {skillsJsonTodo}</p>
+          )}
+        </div>
+      </section>
     </section>
   );
 }

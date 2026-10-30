@@ -1,21 +1,12 @@
-import HobbyPhotos from "@/components/HobbyPhotos";
-import TypedJson from "@/components/TypedJson";
-import {
-  aboutIntro,
-  aboutIntroTodo,
-  bio,
-  certVerifyTodo,
-  certVerifyUrl,
-  goals,
-  hobbies,
-  skillsJson,
-  skillsJsonTodo,
-} from "@/content/site";
+import HobbyMedia from "@/components/HobbyMedia";
+import { aboutIntro, aboutIntroTodo, bio, goals, hobbies } from "@/content/site";
 import { pageMetadata } from "@/lib/meta";
 
-export const metadata = pageMetadata("About", "Computer Science graduate from MSOE: clinical ML research on ICU data at the Medical College of Wisconsin, plus skills, certifications and hobbies.", "/about");
+export const metadata = pageMetadata("About", "Computer Science graduate from MSOE: clinical ML research on ICU data at the Medical College of Wisconsin, plus the things I do off the clock.", "/about");
 
 export default function About() {
+  // Text and photo sides alternate across every row on the page, not per hobby.
+  let rowIndex = 0;
   return (
     <>
       <h1 className="text-4xl font-medium leading-tight">About me</h1>
@@ -32,44 +23,27 @@ export default function About() {
         style={{ borderColor: "var(--grid)" }}
       />
 
-      <section aria-labelledby="skills">
-        <h2 id="skills" className="text-2xl font-medium leading-snug">
-          Skills
-        </h2>
-        <div className="mt-4">
-          {skillsJson ? (
-            <TypedJson
-              data={skillsJson}
-              label="Skills and certifications as JSON"
-              caption={
-                certVerifyUrl ? (
-                  <a href={certVerifyUrl} target="_blank" rel="noopener noreferrer" className="underline">
-                    AWS certifications: verify on Credly
-                  </a>
-                ) : (
-                  <>AWS certifications: verify on Credly (TODO: {certVerifyTodo})</>
-                )
-              }
-            />
-          ) : (
-            <p className="font-sans text-sm text-muted">TODO: {skillsJsonTodo}</p>
-          )}
-        </div>
-      </section>
-
-      <section aria-labelledby="off-the-clock" className="mt-12">
+      <section aria-labelledby="off-the-clock">
         <h2 id="off-the-clock" className="text-2xl font-medium leading-snug">
           Off the clock
         </h2>
         {hobbies.map((h) => (
-          <div key={h.slug} id={h.slug} className="mt-8 scroll-mt-6">
+          <div key={h.slug} id={h.slug} className="mt-10 scroll-mt-6">
             <h3 className="text-xl font-medium leading-snug">{h.title}</h3>
-            <p className="mt-2 max-w-measure">
-              {h.text ?? (
-                <span className="font-sans text-sm text-muted">TODO: {h.textTodo}</span>
-              )}
-            </p>
-            <HobbyPhotos hobby={h} />
+            {h.rows.map((row) => {
+              const photoRight = rowIndex++ % 2 === 0;
+              return (
+                <div
+                  key={row.photo.src}
+                  className="mt-6 grid grid-cols-1 items-center gap-x-10 gap-y-3 md:grid-cols-2"
+                >
+                  <div className={photoRight ? "order-first md:order-last" : "order-first"}>
+                    <HobbyMedia media={row.photo} />
+                  </div>
+                  <p className="max-w-measure">{row.text}</p>
+                </div>
+              );
+            })}
           </div>
         ))}
       </section>

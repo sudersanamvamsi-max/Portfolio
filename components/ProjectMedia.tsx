@@ -6,7 +6,7 @@ export default function ProjectMedia({ project }: { project: Project }) {
   return (
     <div className="aspect-video w-full max-w-[68ch] overflow-hidden rounded-lg border border-grid bg-grid/30">
       {media?.video ? (
-        <LoopVideo src={media.video} poster={media.still} label={media.alt} />
+        <LoopVideo src={media.video} poster={media.still} label={media.alt} speed={2} />
       ) : media ? (
         <picture>
           {media.still && (

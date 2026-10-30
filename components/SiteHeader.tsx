@@ -2,13 +2,14 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { cvHref } from "@/content/site";
+import NameBox from "@/components/NameBox";
 
 const TABS = [
   { href: "/about", label: "About me" },
   { href: "/research", label: "Research and publications" },
   { href: "/projects", label: "Projects" },
   { href: "/contact", label: "Contact me" },
+  { href: "/cv", label: "CV" },
 ];
 
 export default function SiteHeader() {
@@ -17,15 +18,11 @@ export default function SiteHeader() {
     <header className="mx-auto w-full max-w-5xl px-5 py-6 font-sans">
       <nav
         aria-label="Main"
-        className="flex flex-col gap-x-8 gap-y-2 sm:flex-row sm:flex-wrap sm:items-baseline"
+        className="flex flex-col gap-x-8 gap-y-2 sm:flex-row sm:flex-wrap sm:items-center"
       >
-        <Link
-          href="/"
-          aria-current={pathname === "/" ? "page" : undefined}
-          className="font-medium text-ink no-underline hover:underline sm:mr-auto"
-        >
-          Vamsi Sudersanam
-        </Link>
+        <span className="sm:mr-auto">
+          <NameBox />
+        </span>
         {TABS.map(({ href, label }) => {
           const active = pathname === href || pathname.startsWith(`${href}/`);
           return (
@@ -43,14 +40,6 @@ export default function SiteHeader() {
             </Link>
           );
         })}
-        <a
-          href={cvHref}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="pb-0.5 text-muted no-underline hover:text-ink"
-        >
-          CV
-        </a>
       </nav>
     </header>
   );

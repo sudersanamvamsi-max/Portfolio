@@ -8,8 +8,8 @@ const FIELD =
 
 type Status = "idle" | "sending" | "sent" | "error";
 
-// With a Formspree endpoint the message is posted there. Without one (the endpoint is
-// still a TODO) submitting opens the visitor's mail app with the message pre-filled.
+// With an endpoint the message is posted there as JSON-accepting multipart. Without one
+// (still a TODO) submitting opens the visitor's mail app with the message pre-filled.
 export default function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
 
@@ -29,6 +29,14 @@ ${f.get("email")}`;
       return;
     }
 
+    // Bots fill the hidden "_gotcha" field; pretend success and send nothing.
+    if (f.get("_gotcha")) {
+      form.reset();
+      setStatus("sent");
+      return;
+    }
+    f.set("_subject", `Portfolio contact from ${f.get("name")}`);
+
     setStatus("sending");
     try {
       const res = await fetch(formspreeEndpoint, {
@@ -46,6 +54,13 @@ ${f.get("email")}`;
 
   return (
     <form onSubmit={onSubmit} className="flex max-w-measure flex-col gap-5 font-sans">
+      <input type="hidden" name="_subject" value="Portfolio contact from" readOnly />
+      <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
+        <label>
+          Leave this field empty
+          <input name="_gotcha" tabIndex={-1} autoComplete="off" />
+        </label>
+      </div>
       <label className="block">
         Your name
         <input name="name" required autoComplete="name" className={FIELD} />
@@ -85,7 +100,7 @@ ${f.get("email")}`;
           {status === "idle" &&
             (formspreeEndpoint
               ? ""
-              : "TODO: Formspree endpoint. Until then this opens your email app with the message ready to send.")}
+              : "TODO: form endpoint. Until then this opens your email app with the message ready to send.")}
         </p>
       </div>
     </form>

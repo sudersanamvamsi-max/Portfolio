@@ -61,7 +61,9 @@ Left-aligned single column with a narrow left margin column for metadata (dates,
 
 On mobile, the margin column collapses above each entry.
 
-**Hero:** name, one sentence about what he does, and a single stepped survival curve with a few censoring ticks that draws once on page load (the site's only automatic animation). Respect `prefers-reduced-motion` by showing it fully drawn. Below it, two plain links: "Research" and "Engineering".
+**Header:** the home link is an animated bordered box reading VAMSI (JetBrains Mono): binary → hex → letters over about 2.5 s, once per session, static under reduced motion. Fixed size so the nav never shifts. The only other automatic animations are the hero curve and the typed skills panel.
+
+**Hero:** name, one sentence about what he does, and a single stepped survival curve with a few censoring ticks that draws once on page load (the first automatic animation on the page). Respect `prefers-reduced-motion` by showing it fully drawn. The visible name lives in the header box; the h1 is screen-reader only.
 
 **Section dividers:** a thin stepped line in `grid` color, used sparingly.
 
@@ -69,13 +71,13 @@ On mobile, the margin column collapses above each entry.
 
 ## Pages
 
-1. `/`: hero, Research and Projects links, featured items (NIV, RL Studio), contact line.
-2. `/research`: NIV project, disc degeneration project (each with a one-sentence summary), publications list.
+1. `/`: sr-only h1, intro text, photo, patient risk curve, presenting photo with space for text, typed-JSON skills panel (with Credly caption).
+2. `/research`: NIV project, disc degeneration project (each with a one-sentence summary), publications list (the disc preprint only; the NIV manuscript is not listed until submitted).
 3. `/projects`: RL Studio, regression pipeline, GPT from scratch, repair workflow. One page, no per-project pages; each project has an anchor (`/projects#rl-studio`).
 4. `/research/niv`, `/research/disc-degeneration`: project pages written as problem → approach → results → what I learned.
-5. `/about`: intro, bio, code window, skills, certifications, interests.
-6. `/contact`: what I'm open to, Formspree form with mailto fallback.
-7. CV: a nav item opening `/public/cv/vamsi-sudersanam-cv.pdf` in a new tab (no `/cv` page).
+5. `/about`: intro, bio, "Off the clock" hobby subsections (Cooking, Basketball, Getting outside and the gym), each row text + photo/video, alternating sides.
+6. `/contact`: what I'm open to, form (Jotform endpoint, honeypot, JSON fetch) with mailto fallback.
+7. `/cv`: h1, Download PDF button, embedded PDF (`/public/cv/Vamsi_Sudersanam_SWE.pdf`) with fallback link. The nav CV item goes here in the same tab.
 8. Later: `/demo/survival`: interactive survival demo on synthetic data (see phase 4).
 
 ## Build order
