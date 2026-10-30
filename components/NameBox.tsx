@@ -10,7 +10,6 @@ const BOX_PAD = 8; // px, each side
 const MIN_FONT = 9; // px; below this the binary stage is skipped
 const STAGGER_MS = 100;
 const TICK_MS = 60;
-const FLAG = "nameBoxPlayed";
 
 type Stage = "bin" | "hex" | "letter";
 
@@ -55,18 +54,11 @@ export default function NameBox() {
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    try {
-      if (sessionStorage.getItem(FLAG)) return;
-    } catch {}
 
     const binaryFits =
       FONT_PX.bin >= MIN_FONT && BOX_W <= document.documentElement.clientWidth - 40;
     const chosen = binaryFits ? WITH_BINARY : HEX_ONLY;
     setPlan(chosen);
-
-    try {
-      sessionStorage.setItem(FLAG, "1");
-    } catch {}
 
     const end = chosen[chosen.length - 1].until + STAGGER_MS * (NAME.length - 1) + 400;
     const t0 = performance.now();
@@ -90,9 +82,12 @@ export default function NameBox() {
       href="/"
       aria-current={pathname === "/" ? "page" : undefined}
       aria-label="Vamsi Sudersanam, home"
-      className="inline-flex h-10 shrink-0 items-center self-start overflow-hidden whitespace-nowrap border border-ink font-mono font-medium text-ink no-underline hover:bg-grid/40"
-      style={{ width: BOX_W, paddingInline: BOX_PAD }}
+      className="group flex shrink-0 flex-col items-start gap-1.5 self-start text-ink no-underline"
     >
+      <span
+        className="inline-flex h-10 items-center overflow-hidden whitespace-nowrap border border-ink font-mono font-medium group-hover:bg-grid/40"
+        style={{ width: BOX_W, paddingInline: BOX_PAD }}
+      >
       {NAME.split("").map((letter, i) => {
         const s = elapsed === null ? { stage: "letter" as Stage, text: letter } : slotText(i, elapsed, plan, tick);
         return (
@@ -106,6 +101,12 @@ export default function NameBox() {
           </span>
         );
       })}
+      </span>
+      <span aria-hidden="true" className="font-sans text-sm font-medium leading-tight">
+        Vamsi
+        <br />
+        Sudersanam
+      </span>
     </Link>
   );
 }

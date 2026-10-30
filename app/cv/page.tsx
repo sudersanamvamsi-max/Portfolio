@@ -6,8 +6,8 @@ export const metadata = pageMetadata("CV", "Curriculum vitae of Vamsi Sudersanam
 export default function Cv() {
   return (
     <>
-      <h1 className="text-4xl font-medium leading-tight">CV</h1>
-      <p className="mt-5">
+      <h1 className="sr-only">CV</h1>
+      <p>
         <a
           href={cvHref}
           download

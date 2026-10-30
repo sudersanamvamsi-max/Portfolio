@@ -24,12 +24,16 @@ export default function About() {
       />
 
       <section aria-labelledby="off-the-clock">
-        <h2 id="off-the-clock" className="text-2xl font-medium leading-snug">
+        <h2 id="off-the-clock" className="text-3xl font-medium leading-snug">
           Off the clock
         </h2>
-        {hobbies.map((h) => (
-          <div key={h.slug} id={h.slug} className="mt-10 scroll-mt-6">
-            <h3 className="text-xl font-medium leading-snug">{h.title}</h3>
+        {hobbies.map((h, i) => (
+          <div
+            key={h.slug}
+            id={h.slug}
+            className={`scroll-mt-6 ${i === 0 ? "mt-10" : "mt-10 border-t border-grid pt-10"}`}
+          >
+            <h3 className="text-2xl font-medium leading-snug">{h.title}</h3>
             {h.rows.map((row) => {
               const photoRight = rowIndex++ % 2 === 0;
               return (

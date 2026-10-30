@@ -21,7 +21,8 @@ export const aboutIntroTodo = "how you got into clinical ML and where you are go
 
 // Photo or video (.mp4/.webm). Files live in /public/about/. A missing file shows a visible
 // TODO placeholder; a missing `alt` or `caption` shows a visible TODO under the media.
-export type HobbyMedia = { src: string; alt?: string; caption?: string };
+// `speed` overrides the playback rate of a video (default: 2x under 20 s, otherwise 1x).
+export type HobbyMedia = { src: string; alt?: string; caption?: string; speed?: number };
 export type HobbyRow = { text: string; photo: HobbyMedia };
 export type Hobby = { slug: string; title: string; rows: HobbyRow[] };
 
@@ -32,15 +33,15 @@ export const hobbies: Hobby[] = [
     rows: [
       {
         text: "I cook whatever I'm craving in the moment.",
-        photo: { src: "/about/cooking-1.jpeg" },
+        photo: { src: "/about/cooking-1.jpeg", caption: "Thai lemon soup with shrimp" },
       },
       {
         text: "I love cooking for family and friends, who sometimes send in special requests.",
-        photo: { src: "/about/cooking-2.mp4" },
+        photo: { src: "/about/cooking-2.mp4", caption: "Sticky toffee pudding" },
       },
       {
         text: "I love eating as much as I love cooking, and the two go hand in hand: it makes me a perfectionist in the kitchen, which is a double-edged sword.",
-        photo: { src: "/about/cooking-3.jpg" },
+        photo: { src: "/about/cooking-3.jpg", caption: "Churrasco with chimichurri" },
       },
     ],
   },
@@ -50,7 +51,7 @@ export const hobbies: Hobby[] = [
     rows: [
       {
         text: "I started playing in school and was captain of my team. The workload at university pulled me away for a while, but I've picked it back up and now play in leagues.",
-        photo: { src: "/about/basketball.mp4" },
+        photo: { src: "/about/basketball.mp4", speed: 1 },
       },
     ],
   },

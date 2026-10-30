@@ -18,7 +18,7 @@ export default function SiteHeader() {
     <header className="mx-auto w-full max-w-5xl px-5 py-6 font-sans">
       <nav
         aria-label="Main"
-        className="flex flex-col gap-x-8 gap-y-2 sm:flex-row sm:flex-wrap sm:items-center"
+        className="flex flex-col gap-x-8 gap-y-2 sm:flex-row sm:flex-wrap sm:items-start"
       >
         <span className="sm:mr-auto">
           <NameBox />
@@ -32,8 +32,8 @@ export default function SiteHeader() {
               aria-current={active ? "page" : undefined}
               className={
                 active
-                  ? "border-b-2 border-cohort-a pb-0.5 text-ink no-underline"
-                  : "pb-0.5 text-muted no-underline hover:text-ink"
+                  ? "border-b-2 border-cohort-a pb-0.5 text-ink no-underline sm:mt-2"
+                  : "pb-0.5 text-muted no-underline hover:text-ink sm:mt-2"
               }
             >
               {label}
