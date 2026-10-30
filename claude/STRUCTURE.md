@@ -14,7 +14,7 @@ Rules live in `claude/CLAUDE.md`; the source of truth for facts is `claude/conte
 | Route | File | Content source | Sections, top to bottom |
 |---|---|---|---|
 | `/` | `app/page.tsx` | `content/site.ts`, `research.ts`, `projects.ts` | Name h1, one-liner, goals, `passion`, Research and Projects links, `Photo`; `PatientRiskCurve`; Featured (NIV, RL Studio, linking to `/research/niv` and `/projects#rl-studio`); email and "Get in touch" line |
-| `/about` | `app/about/page.tsx` | `content/site.ts` | h1, `aboutIntro`, bio, goals; rule; Skills (`TypedJson` from `skillsJson`, caption links `certVerifyLinks`); Off the clock (one h3 per `hobbies` entry, `id={slug}`, `HobbyPhotos`) |
+| `/about` | `app/about/page.tsx` | `content/site.ts` | h1, `aboutIntro`, bio, goals; rule; Skills (`TypedJson` from `skillsJson`, caption links `certVerifyUrl`); Off the clock (one h3 per `hobbies` entry, `id={slug}`, `HobbyPhotos`) |
 | `/projects` | `app/projects/page.tsx` | `content/projects.ts` | h1, framing; per project (separated by `StepDivider`, each wrapper has `id={slug}`): `MarginRow` with dates and role in the margin; `ProjectMedia`, title, summary, built bullets, stack, `whyBuilt`, repo link or TODO. Order: RL Studio, regression pipeline, GPT from scratch, repair workflow |
 | `/research` | `app/research/page.tsx` | `content/research.ts` | h1, framing; project list (title links to detail page, `indexSummary` under it, `indexMargin` in the margin); `StepDivider`; Publications (citations, DOI links) |
 | `/research/niv` | `app/research/niv/page.tsx` | `content/research.ts` | `ProjectPage` |
@@ -38,7 +38,7 @@ Every route exports `metadata` built by `pageMetadata(title, description, path)`
 - `ContactForm`, `SiteHeader`
 
 ## Content layer ([content/](../content/))
-- `site.ts`: `email`, `photo`, `oneLiner`, `goals`, `passion` / `passionTodo`, `aboutIntro` / `aboutIntroTodo`, `hobbies`, `skillsJson` / `skillsJsonTodo`, `certVerifyLinks`, `openTo`, `formspreeEndpoint` (null until set), `cvHref`, `bio`
+- `site.ts`: `email`, `photo`, `oneLiner`, `goals`, `passion` / `passionTodo`, `aboutIntro` / `aboutIntroTodo`, `hobbies`, `skillsJson` / `skillsJsonTodo`, `certVerifyUrl` / `certVerifyTodo`, `openTo`, `formspreeEndpoint` (null until set), `cvHref`, `bio`
 - `projects.ts`: `projectsFraming`, `projects[]` with `slug, title, dates, role, stack, summary, built, media, mediaTodo, link, linkTodo, whyBuilt, whyBuiltTodo`
 - `research.ts`: `researchFraming`, `niv`, `disc` (ResearchProject: `slug, title, venue, dates, status, stack, indexMargin, indexSummary, whyThisWork, whyThisWorkTodo?, sections[]`), `publications[]`
 - Pattern: a `fooTodo` string is shown as "TODO: ..." until the real `foo` value is set. To resolve one, set the real value in `content/*.ts`; page code does not change.
