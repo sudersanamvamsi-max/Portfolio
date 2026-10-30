@@ -8,8 +8,8 @@ type Stage = "bin" | "scr" | "hex" | "letter";
 type Plan = { stage: Stage; until: number }[];
 
 const ROWS = [
-  { text: "Vamsi", stagger: 100 },
-  { text: "Sudersanam", stagger: 50 },
+  { text: "Vamsi", stagger: 140 },
+  { text: "Sudersanam", stagger: 70 },
 ];
 
 const TICK_MS = 60;
@@ -17,22 +17,25 @@ const MIN_FONT = 9; // px; below this the binary stage is skipped
 const BIN_FONT = 9.1; // px; 8 bits at 0.6em each fill one 44 px slot
 const BIN_SLOT_W = 44;
 const PAD = 8; // px, each side
-const ROW_H = 24; // px
+const ROW_H = 34; // px
 const BOX_W = BIN_SLOT_W * ROWS[0].text.length + PAD * 2;
 const BOX_H = ROW_H * ROWS.length + PAD * 2;
+// While animating, letters are 18 px; once it ends they grow to FINAL_FONT so that
+// "Sudersanam" (10 chars at 0.6em) fills the box width.
 const FONT: Record<Stage, number> = { bin: BIN_FONT, scr: 14, hex: 14, letter: 18 };
+const FINAL_FONT = 34; // px
 
 // "scr" is scrambling hex pairs; it stands in for the binary stage where eight bits per
 // character cannot fit (the long second row, or any row on a very narrow screen).
 // Every slot runs the plan, starting `stagger` ms after the previous one, so the last letter
-// lands at about 2.4 s.
+// lands at about 3.4 s.
 const BIN_PLAN: Plan = [
-  { stage: "bin", until: 1400 },
-  { stage: "hex", until: 2000 },
+  { stage: "bin", until: 2000 },
+  { stage: "hex", until: 2800 },
 ];
 const HEX_PLAN: Plan = [
-  { stage: "scr", until: 1400 },
-  { stage: "hex", until: 2000 },
+  { stage: "scr", until: 2000 },
+  { stage: "hex", until: 2800 },
 ];
 
 function noise(tick: number, a: number, b: number) {
@@ -72,7 +75,7 @@ export default function NameBox() {
     const binaryFits = BIN_FONT >= MIN_FONT && BOX_W <= document.documentElement.clientWidth - 40;
     setPlans([binaryFits ? BIN_PLAN : HEX_PLAN, HEX_PLAN]);
 
-    const end = 2000 + 100 * (ROWS[0].text.length - 1) + 400;
+    const end = 2800 + ROWS[0].stagger * (ROWS[0].text.length - 1) + 400;
     const t0 = performance.now();
     setElapsed(0);
     const id = window.setInterval(() => {
@@ -101,8 +104,9 @@ export default function NameBox() {
         <span key={row.text} aria-hidden="true" className="flex items-center leading-none" style={{ height: ROW_H }}>
           {row.text.split("").map((ch, i) => {
             const s = elapsed === null ? { stage: "letter" as Stage, text: ch } : slotText(r, i, plans[r], elapsed, tick);
+            const size = elapsed === null ? FINAL_FONT : FONT[s.stage];
             return (
-              <span key={i} style={{ fontSize: FONT[s.stage] }}>
+              <span key={i} className="motion-safe:transition-[font-size] motion-safe:duration-500" style={{ fontSize: size }}>
                 {s.text}
               </span>
             );

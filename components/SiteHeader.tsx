@@ -32,8 +32,8 @@ export default function SiteHeader() {
               aria-current={active ? "page" : undefined}
               className={
                 active
-                  ? "border-b-2 border-cohort-a pb-0.5 text-ink no-underline sm:mt-5"
-                  : "pb-0.5 text-muted no-underline hover:text-ink sm:mt-5"
+                  ? "border-b-2 border-cohort-a pb-0.5 text-ink no-underline sm:mt-7"
+                  : "pb-0.5 text-muted no-underline hover:text-ink sm:mt-7"
               }
             >
               {label}
