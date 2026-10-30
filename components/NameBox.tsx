@@ -4,63 +4,75 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
-const NAME = "VAMSI";
-const SLOT_W = 44; // px; the box never changes size
-const BOX_PAD = 8; // px, each side
-const MIN_FONT = 9; // px; below this the binary stage is skipped
-const STAGGER_MS = 100;
+type Stage = "bin" | "scr" | "hex" | "letter";
+type Plan = { stage: Stage; until: number }[];
+
+const ROWS = [
+  { text: "Vamsi", stagger: 100 },
+  { text: "Sudersanam", stagger: 50 },
+];
+
 const TICK_MS = 60;
+const MIN_FONT = 9; // px; below this the binary stage is skipped
+const BIN_FONT = 9.1; // px; 8 bits at 0.6em each fill one 44 px slot
+const BIN_SLOT_W = 44;
+const PAD = 8; // px, each side
+const ROW_H = 24; // px
+const BOX_W = BIN_SLOT_W * ROWS[0].text.length + PAD * 2;
+const BOX_H = ROW_H * ROWS.length + PAD * 2;
+const FONT: Record<Stage, number> = { bin: BIN_FONT, scr: 14, hex: 14, letter: 18 };
 
-type Stage = "bin" | "hex" | "letter";
-
-// Every slot runs the same stages; slot i starts i * STAGGER_MS later. The last letter lands
-// at about 2.4 s.
-const WITH_BINARY: { stage: Stage; until: number }[] = [
+// "scr" is scrambling hex pairs; it stands in for the binary stage where eight bits per
+// character cannot fit (the long second row, or any row on a very narrow screen).
+// Every slot runs the plan, starting `stagger` ms after the previous one, so the last letter
+// lands at about 2.4 s.
+const BIN_PLAN: Plan = [
   { stage: "bin", until: 1400 },
   { stage: "hex", until: 2000 },
 ];
-const HEX_ONLY: { stage: Stage; until: number }[] = [{ stage: "hex", until: 1000 }];
+const HEX_PLAN: Plan = [
+  { stage: "scr", until: 1400 },
+  { stage: "hex", until: 2000 },
+];
 
-const FONT_PX: Record<Stage, number> = { bin: Math.floor((SLOT_W / (8 * 0.6)) * 10) / 10, hex: 18, letter: 24 };
-const BOX_W = SLOT_W * NAME.length + BOX_PAD * 2;
-
-function bits(code: number) {
-  return code.toString(2).padStart(8, "0");
+function noise(tick: number, a: number, b: number) {
+  return ((((tick * 7 + a * 13 + b * 5) * 2654435761) >>> 31) & 1) as 0 | 1;
 }
 
-function slotText(i: number, elapsed: number, plan: typeof WITH_BINARY, tick: number) {
-  const t = elapsed - i * STAGGER_MS;
-  const code = NAME.charCodeAt(i);
-  if (t < 0) return { stage: plan[0].stage, text: plan[0].stage === "bin" ? "".padEnd(8, "0") : "  " };
-  const current = plan.find((p) => t < p.until);
-  if (!current) return { stage: "letter" as Stage, text: NAME[i] };
-  if (current.stage === "hex") {
-    return { stage: "hex" as Stage, text: code.toString(16).toUpperCase().padStart(2, "0") };
+function slotText(row: number, i: number, plan: Plan, elapsed: number, tick: number) {
+  const ch = ROWS[row].text[i];
+  const code = ch.charCodeAt(0);
+  const t = elapsed - i * ROWS[row].stagger;
+  const first = plan[0].stage;
+  if (t < 0) return { stage: first, text: first === "bin" ? "00000000" : "00" };
+  const cur = plan.find((p) => t < p.until);
+  if (!cur) return { stage: "letter" as Stage, text: ch };
+  const hex = code.toString(16).toUpperCase().padStart(2, "0");
+  if (cur.stage === "hex") return { stage: "hex" as Stage, text: hex };
+  if (cur.stage === "scr") {
+    const d = (n: number) => "0123456789ABCDEF"[(tick * 5 + i * 3 + row * 7 + n * 11) % 16];
+    return { stage: "scr" as Stage, text: d(0) + d(1) };
   }
   // Binary: bits settle left to right across the stage while the rest keep scrambling.
-  const settled = Math.floor((t / current.until) * 8 * 1.6);
-  const final = bits(code);
+  const final = code.toString(2).padStart(8, "0");
+  const settled = Math.floor((t / cur.until) * 8 * 1.6);
   let out = "";
-  for (let b = 0; b < 8; b++) {
-    out += b < settled ? final[b] : String((((tick * 7 + i * 13 + b * 5) * 2654435761) >>> 31) & 1);
-  }
+  for (let b = 0; b < 8; b++) out += b < settled ? final[b] : String(noise(tick, i + row * 17, b));
   return { stage: "bin" as Stage, text: out };
 }
 
 export default function NameBox() {
   const pathname = usePathname();
   const [elapsed, setElapsed] = useState<number | null>(null);
-  const [plan, setPlan] = useState(WITH_BINARY);
+  const [plans, setPlans] = useState<Plan[]>([BIN_PLAN, HEX_PLAN]);
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    const binaryFits =
-      FONT_PX.bin >= MIN_FONT && BOX_W <= document.documentElement.clientWidth - 40;
-    const chosen = binaryFits ? WITH_BINARY : HEX_ONLY;
-    setPlan(chosen);
+    const binaryFits = BIN_FONT >= MIN_FONT && BOX_W <= document.documentElement.clientWidth - 40;
+    setPlans([binaryFits ? BIN_PLAN : HEX_PLAN, HEX_PLAN]);
 
-    const end = chosen[chosen.length - 1].until + STAGGER_MS * (NAME.length - 1) + 400;
+    const end = 2000 + 100 * (ROWS[0].text.length - 1) + 400;
     const t0 = performance.now();
     setElapsed(0);
     const id = window.setInterval(() => {
@@ -80,33 +92,23 @@ export default function NameBox() {
   return (
     <Link
       href="/"
-      aria-current={pathname === "/" ? "page" : undefined}
       aria-label="Vamsi Sudersanam, home"
-      className="group flex shrink-0 flex-col items-start gap-1.5 self-start text-ink no-underline"
+      aria-current={pathname === "/" ? "page" : undefined}
+      className="block shrink-0 self-start overflow-hidden whitespace-nowrap border border-ink font-mono font-medium text-ink no-underline hover:bg-grid/40"
+      style={{ width: BOX_W, height: BOX_H, padding: PAD }}
     >
-      <span
-        className="inline-flex h-10 items-center overflow-hidden whitespace-nowrap border border-ink font-mono font-medium group-hover:bg-grid/40"
-        style={{ width: BOX_W, paddingInline: BOX_PAD }}
-      >
-      {NAME.split("").map((letter, i) => {
-        const s = elapsed === null ? { stage: "letter" as Stage, text: letter } : slotText(i, elapsed, plan, tick);
-        return (
-          <span
-            key={i}
-            aria-hidden="true"
-            className="block text-center leading-none"
-            style={{ width: SLOT_W, fontSize: FONT_PX[s.stage] }}
-          >
-            {s.text}
-          </span>
-        );
-      })}
-      </span>
-      <span aria-hidden="true" className="font-sans text-sm font-medium leading-tight">
-        Vamsi
-        <br />
-        Sudersanam
-      </span>
+      {ROWS.map((row, r) => (
+        <span key={row.text} aria-hidden="true" className="flex items-center leading-none" style={{ height: ROW_H }}>
+          {row.text.split("").map((ch, i) => {
+            const s = elapsed === null ? { stage: "letter" as Stage, text: ch } : slotText(r, i, plans[r], elapsed, tick);
+            return (
+              <span key={i} style={{ fontSize: FONT[s.stage] }}>
+                {s.text}
+              </span>
+            );
+          })}
+        </span>
+      ))}
     </Link>
   );
 }

@@ -61,7 +61,7 @@ Left-aligned single column with a narrow left margin column for metadata (dates,
 
 On mobile, the margin column collapses above each entry.
 
-**Header:** the home link is an animated bordered box reading VAMSI (JetBrains Mono): binary → hex → letters over about 2.5 s, on every full page load or refresh (not on in-site navigation), static under reduced motion. Fixed size so the nav never shifts. The only other automatic animations are the hero curve and the typed skills panel.
+**Header:** the home link is an animated bordered box reading Vamsi over Sudersanam (JetBrains Mono): binary → hex → letters (the long second row uses scrambling hex in place of binary) over about 2.5 s, on every full page load or refresh (not on in-site navigation), static under reduced motion. Fixed size so the nav never shifts. The only other automatic animations are the hero curve and the typed skills panel.
 
 **Hero:** name, one sentence about what he does, and a single stepped survival curve with a few censoring ticks that draws once on page load (the first automatic animation on the page). Respect `prefers-reduced-motion` by showing it fully drawn. The visible name lives in the header box; the h1 is screen-reader only.
 

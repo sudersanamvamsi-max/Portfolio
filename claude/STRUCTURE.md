@@ -35,7 +35,7 @@ Every route exports `metadata` built by `pageMetadata(title, description, path)`
 - `DataTable`: results tables, supports `colSpan`
 - `PatientRiskCurve`, `HeroCurve`: home page survival-curve visuals
 - `TypedJson`: typed, syntax-colored JSON panel on Home (client component; types once on scroll-into-view, click or key completes it)
-- `NameBox`: animated VAMSI box in the header (client; binary → hex → letters on every full page load or refresh, not on client-side navigation; static under reduced motion)
+- `NameBox`: animated two-row name box in the header (Vamsi / Sudersanam) (client; binary → hex → letters on every full page load or refresh, not on client-side navigation; static under reduced motion)
 - `LoopVideo`: muted looping video (client); plays 2x when shorter than 20 s unless `speed` is passed (RL Studio passes 2); reduced motion shows controls instead of autoplay
 - `HobbyMedia`: photo or video in a 4:3 frame (server; checks `public/` at build time and shows a visible TODO if the file is missing, and a TODO caption until `alt` and `caption` are set). `Photo`, `ProjectMedia`: image slots with visible TODO placeholders
 - `ContactForm`, `SiteHeader`
