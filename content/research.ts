@@ -28,7 +28,6 @@ export type ResearchProject = {
   // A sentence or two in your own words on why this problem drew you in. If neither field
   // is set, the project page shows nothing in that slot.
   whyThisWork?: string;
-  whyThisWorkTodo?: string;
 };
 
 export type Publication = {

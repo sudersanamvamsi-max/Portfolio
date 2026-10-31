@@ -13,8 +13,8 @@ Rules live in `claude/CLAUDE.md`; the source of truth for facts is `claude/conte
 
 | Route | File | Content source | Sections, top to bottom |
 |---|---|---|---|
-| `/` | `app/page.tsx` | `content/site.ts` | sr-only h1 "Vamsi Sudersanam", one-liner, goals, `passion`, `Photo`; `PatientRiskCurve`; `presenting` photo with `presentingText` / TODO under it; Skills (`TypedJson` from `skillsJson`, caption links `certVerifyUrl`) |
-| `/about` | `app/about/page.tsx` | `content/site.ts` | h1, `aboutIntro`, bio, goals; rule; Off the clock: one h3 per `hobbies` entry (`id={slug}`), each with `rows` of text + `HobbyMedia` in 2 columns; sides alternate across all rows (row 1 text left, row 2 photo left, ...); on mobile the photo stacks above the text |
+| `/` | `app/page.tsx` | `content/site.ts` | sr-only h1 "Vamsi Sudersanam", one-liner, goals, `passion`, `Photo`; `PatientRiskCurve`; `presenting` photo with `presentingText` caption under it; Skills (`TypedJson` from `skillsJson`, caption links `certVerifyUrl`) |
+| `/about` | `app/about/page.tsx` | `content/site.ts` | h1, `aboutIntro` (three paragraphs), goals; rule; Off the clock (`hobbiesIntro` under the heading): one h3 per `hobbies` entry (`id={slug}`), each with `rows` of text + `HobbyMedia` in 2 columns; sides alternate across all rows (row 1 text left, row 2 photo left, ...); on mobile the photo stacks above the text |
 | `/projects` | `app/projects/page.tsx` | `content/projects.ts` | h1, framing; per project (separated by `StepDivider`, each wrapper has `id={slug}`): `MarginRow` with dates and role in the margin; `ProjectMedia`, title, summary, built bullets, stack, `whyBuilt`, repo link or TODO. Order: RL Studio, regression pipeline, GPT from scratch, repair workflow |
 | `/research` | `app/research/page.tsx` | `content/research.ts` | h1, framing; project list (title links to detail page, `indexSummary` under it, `indexMargin` in the margin); `StepDivider`; Publications (citations, DOI links) |
 | `/research/niv` | `app/research/niv/page.tsx` | `content/research.ts` | `ProjectPage` |
@@ -24,7 +24,7 @@ Rules live in `claude/CLAUDE.md`; the source of truth for facts is `claude/conte
 
 Every route exports `metadata` built by `pageMetadata(title, description, path)` from [lib/meta.ts](../lib/meta.ts). Titles read "Page — Vamsi Sudersanam". Open Graph and Twitter tags use `/og.png`. The home route uses the layout's metadata.
 
-`ProjectPage` layout: back link, h1, `whyThisWork` (omitted if neither it nor `whyThisWorkTodo` is set), `MarginRow` with a metadata `dl` (Dates, Venue, Status, Stack) in the margin and the sections in the main column. Section blocks are `p`, `h3`, `ul` or `table` (`DataTable`). Back link repeated at the bottom.
+`ProjectPage` layout: back link, h1, `whyThisWork` (omitted if not set), `MarginRow` with a metadata `dl` (Dates, Venue, Status, Stack) in the margin and the sections in the main column. Section blocks are `p`, `h3`, `ul` or `table` (`DataTable`). Back link repeated at the bottom.
 
 `ContactForm`: if `formspreeEndpoint` is set (now a Jotform URL; the name is historical), it posts the form with `fetch` and `Accept: application/json`, includes a hidden `_subject` ("Portfolio contact from {name}") and a honeypot `_gotcha`, and shows sending, success and error states (the error links to the mailto address). If it is `null`, it falls back to opening the visitor's mail app and shows a visible TODO.
 
@@ -33,7 +33,7 @@ Every route exports `metadata` built by `pageMetadata(title, description, path)`
 - `StepDivider`: step-shaped divider between items
 - `Inline`: renders `*emphasis*` and `**strong**` markup in strings
 - `DataTable`: results tables, supports `colSpan`
-- `PatientRiskCurve`, `HeroCurve`: home page survival-curve visuals
+- `PatientRiskCurve`: home page survival-curve visual
 - `TypedJson`: typed, syntax-colored JSON panel on Home (client component; types once on scroll-into-view, click or key completes it)
 - `NameBox`: animated two-row name box in the header (Vamsi / Sudersanam) (client; binary → hex → letters on every full page load or refresh, not on client-side navigation; static under reduced motion)
 - `LoopVideo`: muted looping video (client); plays 2x when shorter than 20 s unless `speed` is passed (RL Studio passes 2); reduced motion shows controls instead of autoplay
@@ -41,10 +41,10 @@ Every route exports `metadata` built by `pageMetadata(title, description, path)`
 - `ContactForm`, `SiteHeader`
 
 ## Content layer ([content/](../content/))
-- `site.ts`: `email`, `photo`, `oneLiner`, `goals`, `passion` / `passionTodo`, `aboutIntro` / `aboutIntroTodo`, `hobbies` (`{ slug, title, rows: { text, photo: { src, alt?, caption? } }[] }[]`), `presenting` / `presentingText` / `presentingTextTodo`, `skillsJson` / `skillsJsonTodo`, `certVerifyUrl` / `certVerifyTodo`, `openTo`, `formspreeEndpoint`, `cvHref`, `bio`
-- `projects.ts`: `projectsFraming`, `projects[]` with `slug, title, dates, role, stack, summary, built, media, mediaTodo, link, linkTodo, whyBuilt, whyBuiltTodo`
-- `research.ts`: `researchFraming`, `niv`, `disc` (ResearchProject: `slug, title, venue, dates, status, stack, indexMargin, indexSummary, whyThisWork, whyThisWorkTodo?, sections[]`), `publications[]` (disc-degeneration preprint only; the NIV manuscript is listed on its project page)
-- Pattern: a `fooTodo` string is shown as "TODO: ..." until the real `foo` value is set. To resolve one, set the real value in `content/*.ts`; page code does not change.
+- `site.ts`: `email`, `photo`, `oneLiner`, `goals`, `passion`, `aboutIntro` (string[]), `hobbiesIntro`, `hobbies` (`{ slug, title, rows: { text, photo: { src, alt?, caption? } }[] }[]`), `presenting` / `presentingText`, `skillsJson`, `certVerifyUrl`, `openTo`, `formspreeEndpoint`, `cvHref`
+- `projects.ts`: `projectsFraming`, `projects[]` with `slug, title, dates, role, stack, summary, built, media, mediaTodo, link, linkTodo, whyBuilt`
+- `research.ts`: `researchFraming`, `niv`, `disc` (ResearchProject: `slug, title, venue, dates, status, stack, indexMargin, indexSummary, whyThisWork?, sections[]`), `publications[]` (disc-degeneration preprint only; the NIV manuscript is listed on its project page)
+- Pattern: for content still missing (`presentingText`, `mediaTodo`, `linkTodo`, hobby `alt`/`caption`), a `fooTodo` string or empty field is shown as "TODO: ..." until the real value is set. Fields that are filled have no TODO branch. To resolve one, set the real value in `content/*.ts`; page code does not change.
 
 ## Open TODOs (waiting on Part 3 of the final-phase doc)
 - RL Studio and GPT repo URLs

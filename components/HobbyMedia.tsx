@@ -8,7 +8,7 @@ const VIDEO = /\.(mp4|webm)$/i;
 // Photo or video in a fixed 4:3 frame. Runs at build time, so a file that is not in /public
 // shows the visible TODO placeholder instead of a broken image.
 export default function HobbyMedia({ media }: { media: Media }) {
-  const { src, alt, caption, speed } = media;
+  const { src, alt, speed } = media;
   const exists = existsSync(path.join(process.cwd(), "public", src));
 
   return (
@@ -25,14 +25,9 @@ export default function HobbyMedia({ media }: { media: Media }) {
           <img src={src} alt={alt ?? ""} loading="lazy" decoding="async" className="size-full object-cover" />
         )}
       </div>
-      <figcaption className="mt-2 font-sans text-sm text-muted">
-        {caption}
-        {(!alt || !caption) && (
-          <span className="block">
-            TODO: {[!alt && "alt text", !caption && "caption"].filter(Boolean).join(" and ")}
-          </span>
-        )}
-      </figcaption>
+      {alt === undefined && (
+        <figcaption className="mt-2 font-sans text-sm text-muted">TODO: alt text</figcaption>
+      )}
     </figure>
   );
 }

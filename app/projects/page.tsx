@@ -40,9 +40,7 @@ export default function Projects() {
               {p.stack && (
                 <p className="mt-4 font-sans text-sm text-muted">Stack: {p.stack}</p>
               )}
-              <p className="mt-4">
-                {p.whyBuilt ?? <span className="font-sans text-sm text-muted">TODO: {p.whyBuiltTodo}</span>}
-              </p>
+              <p className="mt-4">{p.whyBuilt}</p>
               {p.link ? (
                 <p className="mt-2 font-sans text-sm">
                   <a href={p.link.href}>{p.link.label}</a>

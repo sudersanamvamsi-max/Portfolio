@@ -1,5 +1,5 @@
 import HobbyMedia from "@/components/HobbyMedia";
-import { aboutIntro, aboutIntroTodo, bio, goals, hobbies } from "@/content/site";
+import { aboutIntro, goals, hobbies, hobbiesIntro } from "@/content/site";
 import { pageMetadata } from "@/lib/meta";
 
 export const metadata = pageMetadata("About", "Computer Science graduate from MSOE: clinical ML research on ICU data at the Medical College of Wisconsin, plus the things I do off the clock.", "/about");
@@ -10,12 +10,11 @@ export default function About() {
   return (
     <>
       <h1 className="text-4xl font-medium leading-tight">About me</h1>
-      <p className="mt-3 max-w-measure">
-        {aboutIntro ?? (
-          <span className="font-sans text-sm text-muted">TODO: {aboutIntroTodo}</span>
-        )}
-      </p>
-      <p className="mt-3 max-w-measure">{bio}</p>
+      {aboutIntro.map((para, i) => (
+        <p key={i} className="mt-3 max-w-measure">
+          {para}
+        </p>
+      ))}
       <p className="mt-3 max-w-measure">{goals}</p>
 
       <hr
@@ -27,6 +26,7 @@ export default function About() {
         <h2 id="off-the-clock" className="text-3xl font-medium leading-snug">
           Off the clock
         </h2>
+        <p className="mt-3 max-w-measure">{hobbiesIntro}</p>
         {hobbies.map((h, i) => (
           <div
             key={h.slug}

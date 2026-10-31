@@ -99,6 +99,8 @@
 - **Languages:** Python, SQL, TypeScript, Java, C/C++, R
 - **Tools:** PyTorch, FastAPI, Next.js/React, Docker, Git, AWS, Databricks, MLflow, Azure DevOps
 
+Also confirmed by Vamsi (Oct 2026) and shown in the typed JSON panel on the home page (`skillsJson` in `content/site.ts`): signal processing, EHR data mining, R with Bioconductor, time-series modeling, gradient boosted trees, cohort selection analytics, Git/GitHub workflows, Docker containerization, cloud compute (AWS), FastAPI architectures. The panel abbreviates the certification names ("AWS Certified AI Prac.", "AWS Cloud Prac."); the full names are below.
+
 ## Certifications
 
 - AWS Certified AI Practitioner (August 2026)

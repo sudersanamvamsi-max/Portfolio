@@ -18,10 +18,7 @@ export type Project = {
   mediaTodo: string;
   link?: { href: string; label: string };
   linkTodo?: string;
-  // A sentence or two in your own words on why you built it or what you enjoyed about it.
-  // Not in content.md yet, so it renders as a visible TODO until filled in.
-  whyBuilt?: string;
-  whyBuiltTodo: string;
+  whyBuilt: string;
 };
 
 export const projectsFraming =
@@ -45,7 +42,6 @@ export const projects: Project[] = [
     linkTodo: "link to repo or demo",
     whyBuilt:
       "I chose RL Studio for my team because reinforcement learning is showing up in almost every field, yet its jargon scares a lot of people away before they ever try it. We built a platform where anyone, technical or not, can learn by doing: configure hyperparameters, train real agents, and get help from a built-in LLM assistant and plain-language pop-ups for every term.",
-    whyBuiltTodo: "why you took this on / what you enjoyed about building it",
   },
   {
     slug: "regression-pipeline",
@@ -60,7 +56,6 @@ export const projects: Project[] = [
     mediaTodo: "a screenshot of an Allure trend report with no company data, or a diagram of the nightly flow",
     whyBuilt:
       "The Historian had 300+ tests and a full run took over six hours, so every code change meant a long wait to find out whether it broke something. I built a pipeline that runs the full suite overnight (8 pm to 6 am), stores results in MongoDB, and publishes Allure reports to each engineer's network drive and to Azure DevOps, so the team can see exactly what failed, rerun individual tests, and filter by product area.",
-    whyBuiltTodo: "why you took this on / what you enjoyed about building it",
   },
   {
     slug: "gpt-from-scratch",
@@ -76,7 +71,6 @@ export const projects: Project[] = [
     linkTodo: "GitHub repo URL",
     whyBuilt:
       "I wanted to actually understand how transformers work, the algorithm underneath every LLM, instead of just calling everything \"AI\" or \"GPT.\"",
-    whyBuiltTodo: "why you took this on / what you enjoyed about building it",
   },
   {
     slug: "repair-workflow",
@@ -89,6 +83,5 @@ export const projects: Project[] = [
     mediaTodo: "a screenshot or short clip of the flow running on dummy asset tags",
     whyBuilt:
       "Automating vendor repair requests saved four hours of manual work every week. It also gave me a reason to learn a new stack, and I put the time it freed up into my research.",
-    whyBuiltTodo: "why you took this on / what you enjoyed about building it",
   },
 ];
