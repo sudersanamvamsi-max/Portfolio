@@ -43,7 +43,16 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className={`${newsreader.variable} ${publicSans.variable} ${jetbrainsMono.variable}`}>
+    <html lang="en" suppressHydrationWarning className={`${newsreader.variable} ${publicSans.variable} ${jetbrainsMono.variable}`}>
+      <head>
+        {/* Apply the stored (or OS) theme before first paint to avoid a flash. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "try{var t=localStorage.getItem('theme');if(t!=='light'&&t!=='dark')t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.theme=t}catch(e){}",
+          }}
+        />
+      </head>
       <body className="flex min-h-screen flex-col font-serif">
         <SiteHeader />
         <main className="mx-auto w-full max-w-5xl flex-1 px-5 py-8">{children}</main>

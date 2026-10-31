@@ -61,6 +61,8 @@ Left-aligned single column with a narrow left margin column for metadata (dates,
 
 On mobile, the margin column collapses above each entry.
 
+**Theme switch:** a text button at the top right of the header toggles dark and light (first visit follows the OS setting; the choice is remembered). Tokens are redefined under `:root[data-theme="dark"]` and in the OS-fallback media query.
+
 **Header colours:** the header is a full-width band in the inverse of the page theme (light page: dark band with light text; dark page: light band with dark text), set by the `--header-bg`, `--header-fg`, `--header-muted` and `--header-accent` tokens in `globals.css`. Header text (links, active state, name box and every animation stage) uses only these tokens and stays at 4.5:1 or better on the band; focus rings inside the header use `--header-accent`. `viewport.themeColor` in `layout.tsx` must match `--header-bg` for each theme.
 
 **Header:** the home link is an animated bordered box reading Vamsi over Sudersanam (JetBrains Mono): binary → hex → letters over about 3.4 s (the long second row uses scrambling hex in place of binary), then the name grows to fill the box, on every full page load or refresh (not on in-site navigation), static under reduced motion. Fixed size so the nav never shifts. The only other automatic animations are the hero curve and the typed skills panel.

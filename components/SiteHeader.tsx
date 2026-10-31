@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import NameBox from "@/components/NameBox";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const TABS = [
   { href: "/about", label: "About me" },
@@ -18,7 +19,7 @@ export default function SiteHeader() {
     <header className="site-header w-full bg-header-bg font-sans text-header-fg">
       <nav
         aria-label="Main"
-        className="mx-auto flex w-full max-w-5xl flex-col gap-x-8 gap-y-2 px-5 py-6 sm:flex-row sm:flex-wrap sm:items-start"
+        className="relative mx-auto flex w-full max-w-5xl flex-col gap-x-8 gap-y-2 px-5 py-6 sm:flex-row sm:flex-wrap sm:items-start"
       >
         <span className="sm:mr-auto">
           <NameBox />
@@ -40,6 +41,7 @@ export default function SiteHeader() {
             </Link>
           );
         })}
+        <ThemeToggle />
       </nav>
     </header>
   );

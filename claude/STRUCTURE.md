@@ -15,7 +15,7 @@ Rules live in `claude/CLAUDE.md`; the source of truth for facts is `claude/conte
 |---|---|---|---|
 | `/` | `app/page.tsx` | `content/site.ts` | sr-only h1 "Vamsi Sudersanam", one-liner, goals, `passion`, `Photo`; `PatientRiskCurve`; `presenting` photo with `presentingText` caption under it; Skills (`TypedJson` from `skillsJson`, caption links `certVerifyUrl`) |
 | `/about` | `app/about/page.tsx` | `content/site.ts` | h1, `aboutIntro` (three paragraphs), goals; rule; Hobbies (no section heading; `hobbiesIntro` follows `goals` in the same paragraph): one h2 per `hobbies` entry, with a thin line under it (`id={slug}`), each with `rows` of text + `HobbyMedia` in 2 columns; sides alternate across all rows (row 1 text left, row 2 photo left, ...); on mobile the photo stacks above the text |
-| `/projects` | `app/projects/page.tsx` | `content/projects.ts` | h1, framing; per project (separated by `StepDivider`, each wrapper has `id={slug}`): `MarginRow` with dates and role in the margin; `ProjectMedia`, title, summary, built bullets, stack, `whyBuilt`, repo link or TODO. Order: RL Studio, regression pipeline, GPT from scratch, repair workflow |
+| `/projects` | `app/projects/page.tsx` | `content/projects.ts` | h1, framing; per project (separated by `StepDivider`, each wrapper has `id={slug}`): `MarginRow` with dates and role in the margin; `ProjectMedia`, title, summary, built bullets, `whyBuilt`, repo link or TODO. Order: RL Studio, regression pipeline, GPT from scratch, repair workflow |
 | `/research` | `app/research/page.tsx` | `content/research.ts` | h1, framing; project list (title links to detail page, `indexSummary` under it, `indexMargin` in the margin); `StepDivider`; Publications (citations, DOI links) |
 | `/research/niv` | `app/research/niv/page.tsx` | `content/research.ts` | `ProjectPage` |
 | `/research/disc-degeneration` | `app/research/disc-degeneration/page.tsx` | `content/research.ts` | `ProjectPage` |
@@ -35,6 +35,7 @@ Every route exports `metadata` built by `pageMetadata(title, description, path)`
 - `DataTable`: results tables, supports `colSpan`
 - `PatientRiskCurve`: home page survival-curve visual
 - `TypedJson`: typed, syntax-colored JSON panel on Home (client component; types once on scroll-into-view, click or key completes it)
+- `ThemeToggle`: dark/light button at the top right of the header (client). Sets `data-theme` on `<html>`, stores the choice in `localStorage` ("theme"), and updates the `theme-color` meta. An inline script in `layout.tsx` applies the stored or OS theme before first paint. `globals.css` has the dark tokens twice (OS fallback when `data-theme` is unset, and `[data-theme="dark"]`); keep them identical.
 - `NameBox`: animated two-row name box in the header (Vamsi / Sudersanam) (client; binary → hex → letters on every full page load or refresh, not on client-side navigation; static under reduced motion)
 - `LoopVideo`: muted looping video (client); plays 2x when shorter than 20 s unless `speed` is passed (RL Studio passes 2); reduced motion shows controls instead of autoplay
 - `HobbyMedia`: photo or video in a 4:3 frame (server; checks `public/` at build time and shows a visible TODO if the file is missing, and a TODO caption until `alt` and `caption` are set). `Photo`, `ProjectMedia`: image slots with visible TODO placeholders

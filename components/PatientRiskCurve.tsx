@@ -200,16 +200,7 @@ export default function PatientRiskCurve() {
 
   return (
     <figure>
-      <div className="flex items-baseline justify-between gap-4">
-        <p className="font-sans text-sm text-muted">Live synthetic patient monitor</p>
-        <button
-          type="button"
-          onClick={() => setRunning((r) => !r)}
-          className="font-sans text-sm text-cohort-a underline underline-offset-2 hover:no-underline"
-        >
-          {running ? "Pause" : "Resume"}
-        </button>
-      </div>
+      <p className="font-sans text-sm text-muted">Live synthetic patient monitor</p>
       <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-3">
         {tiles.map((t) => (
           <div key={t.label} className="border border-grid p-4">
@@ -235,7 +226,7 @@ export default function PatientRiskCurve() {
       </svg>
       <figcaption className="mt-3 max-w-measure font-sans text-sm text-muted">
         A synthetic patient generated in code, updated every second. Risk is a toy function of
-        the vitals for illustration, not my model&apos;s output, and no value is patient data.
+        the vitals for illustration.
       </figcaption>
     </figure>
   );

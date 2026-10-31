@@ -17,8 +17,10 @@
   --header-accent: #8fa9ff;
 }
 
+/* Dark tokens apply when the OS asks for dark and no choice is stored (data-theme unset), or
+   when data-theme="dark" is set by the header toggle. Keep the two blocks identical. */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme]) {
     --paper: #182530;
     --ink: #e6edf1;
     --muted: #9fb0bd;
@@ -27,9 +29,22 @@
     --cohort-b: #e0b04f;
     --header-bg: #f5f7f8;
     --header-fg: #1c2b36;
-    --header-muted: #5b6b78;
+    --header-muted: #26343f;
     --header-accent: #2e4ba8;
   }
+}
+
+:root[data-theme="dark"] {
+  --paper: #182530;
+  --ink: #e6edf1;
+  --muted: #9fb0bd;
+  --grid: #2f3f4b;
+  --cohort-a: #8fa9ff;
+  --cohort-b: #e0b04f;
+  --header-bg: #f5f7f8;
+  --header-fg: #1c2b36;
+  --header-muted: #26343f;
+  --header-accent: #2e4ba8;
 }
 
 @theme inline {
@@ -50,6 +65,14 @@
 }
 
 @layer base {
+  html[data-theme="light"] {
+    color-scheme: light;
+  }
+
+  html[data-theme="dark"] {
+    color-scheme: dark;
+  }
+
   html {
     color-scheme: light dark;
     background: var(--paper);
@@ -73,6 +96,19 @@
     outline-offset: 3px;
     border-radius: 2px;
   }
+}
+
+/* Header toggle label: names the theme you will switch to. */
+.theme-to-light {
+  display: none;
+}
+
+html[data-theme="dark"] .theme-to-light {
+  display: inline;
+}
+
+html[data-theme="dark"] .theme-to-dark {
+  display: none;
 }
 
 /* Focus rings inside the header use the header's own accent so they show on either band. */
