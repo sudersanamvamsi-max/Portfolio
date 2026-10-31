@@ -16,10 +16,10 @@ const TABS = [
 export default function SiteHeader() {
   const pathname = usePathname();
   return (
-    <header className="site-header w-full bg-header-bg font-sans text-header-fg">
+    <header className="site-header relative w-full bg-header-bg font-sans text-header-fg">
       <nav
         aria-label="Main"
-        className="relative mx-auto flex w-full max-w-5xl flex-col gap-x-8 gap-y-2 px-5 py-6 sm:flex-row sm:flex-wrap sm:items-start"
+        className="mx-auto flex w-full max-w-5xl flex-col gap-x-8 gap-y-2 px-5 py-6 sm:flex-row sm:flex-wrap sm:items-start"
       >
         <span className="sm:mr-auto">
           <NameBox />
@@ -41,8 +41,8 @@ export default function SiteHeader() {
             </Link>
           );
         })}
-        <ThemeToggle />
       </nav>
+      <ThemeToggle />
     </header>
   );
 }
