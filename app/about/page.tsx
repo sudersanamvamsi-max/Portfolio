@@ -15,25 +15,23 @@ export default function About() {
           {para}
         </p>
       ))}
-      <p className="mt-3 max-w-measure">{goals}</p>
+      <p className="mt-3 max-w-measure">
+        {goals} {hobbiesIntro}
+      </p>
 
       <hr
         className="my-12 w-full min-w-40 border-0 border-t"
         style={{ borderColor: "var(--grid)" }}
       />
 
-      <section aria-labelledby="off-the-clock">
-        <h2 id="off-the-clock" className="text-3xl font-medium leading-snug">
-          Off the clock
-        </h2>
-        <p className="mt-3 max-w-measure">{hobbiesIntro}</p>
+      <section>
         {hobbies.map((h, i) => (
           <div
             key={h.slug}
             id={h.slug}
             className={`scroll-mt-6 ${i === 0 ? "mt-10" : "mt-10 border-t border-grid pt-10"}`}
           >
-            <h3 className="text-2xl font-medium leading-snug">{h.title}</h3>
+            <h2 className="border-b border-ink/25 pb-2 text-2xl font-medium leading-snug">{h.title}</h2>
             {h.rows.map((row) => {
               const photoRight = rowIndex++ % 2 === 0;
               return (

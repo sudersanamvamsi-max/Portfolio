@@ -36,7 +36,7 @@ export const aboutIntro: string[] = [
 // `speed` overrides the playback rate of a video (default: 2x under 20 s, otherwise 1x).
 export type HobbyMedia = { src: string; alt?: string; speed?: number };
 export type HobbyRow = { text: string; photo: HobbyMedia };
-export const hobbiesIntro = "I also try to lead a balanced life and touch grass once in a while.";
+export const hobbiesIntro = "I also try to lead a balanced life and touch grass once in a while. To do this, I have some hobbies.";
 
 export type Hobby = { slug: string; title: string; rows: HobbyRow[] };
 

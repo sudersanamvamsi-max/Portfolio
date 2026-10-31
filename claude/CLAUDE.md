@@ -75,7 +75,7 @@ On mobile, the margin column collapses above each entry.
 2. `/research`: NIV project, disc degeneration project (each with a one-sentence summary), publications list (the disc preprint only; the NIV manuscript is not listed until submitted).
 3. `/projects`: RL Studio, regression pipeline, GPT from scratch, repair workflow. One page, no per-project pages; each project has an anchor (`/projects#rl-studio`).
 4. `/research/niv`, `/research/disc-degeneration`: project pages written as problem → approach → results → what I learned.
-5. `/about`: intro, bio, "Off the clock" hobby subsections (Cooking, Basketball, Getting outside and the gym), each row text + photo/video, alternating sides.
+5. `/about`: intro (three paragraphs), goals line followed by the hobbies line, hobby sections (Cooking, Basketball, Getting outside and the gym), each row text + photo/video, alternating sides.
 6. `/contact`: what I'm open to, form (Jotform endpoint, honeypot, JSON fetch) with mailto fallback.
 7. `/cv`: h1, Download PDF button, embedded PDF (`/public/cv/Vamsi_Sudersanam_SWE.pdf`) with fallback link. The nav CV item goes here in the same tab.
 8. Later: `/demo/survival`: interactive survival demo on synthetic data (see phase 4).
