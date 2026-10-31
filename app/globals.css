@@ -8,6 +8,13 @@
   --cohort-a: #2e4ba8;
   --cohort-b: #b7862b;
   --measure: 68ch;
+  /* Header band: the inverse of the page theme. Light page = dark header, dark page = light
+     header. Keep in step with `viewport.themeColor` in app/layout.tsx. Each text color is
+     at least 4.5:1 on --header-bg. */
+  --header-bg: #1c2b36;
+  --header-fg: #e6edf1;
+  --header-muted: #9fb0bd;
+  --header-accent: #8fa9ff;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -18,6 +25,10 @@
     --grid: #2f3f4b;
     --cohort-a: #8fa9ff;
     --cohort-b: #e0b04f;
+    --header-bg: #f5f7f8;
+    --header-fg: #1c2b36;
+    --header-muted: #5b6b78;
+    --header-accent: #2e4ba8;
   }
 }
 
@@ -28,6 +39,10 @@
   --color-grid: var(--grid);
   --color-cohort-a: var(--cohort-a);
   --color-cohort-b: var(--cohort-b);
+  --color-header-bg: var(--header-bg);
+  --color-header-fg: var(--header-fg);
+  --color-header-muted: var(--header-muted);
+  --color-header-accent: var(--header-accent);
   --container-measure: var(--measure);
   --font-serif: var(--font-newsreader), Georgia, serif;
   --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
@@ -58,6 +73,11 @@
     outline-offset: 3px;
     border-radius: 2px;
   }
+}
+
+/* Focus rings inside the header use the header's own accent so they show on either band. */
+.site-header :focus-visible {
+  outline-color: var(--header-accent);
 }
 
 /* Hero curve: drawn once on load. Only animates when motion is allowed;

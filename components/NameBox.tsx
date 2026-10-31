@@ -97,7 +97,7 @@ export default function NameBox() {
       href="/"
       aria-label="Vamsi Sudersanam, home"
       aria-current={pathname === "/" ? "page" : undefined}
-      className="block shrink-0 self-start overflow-hidden whitespace-nowrap border border-ink font-mono font-medium text-ink no-underline hover:bg-grid/40"
+      className="block shrink-0 self-start overflow-hidden whitespace-nowrap border border-header-fg font-mono font-medium text-header-fg no-underline hover:bg-header-fg/10"
       style={{ width: BOX_W, height: BOX_H, padding: PAD }}
     >
       {ROWS.map((row, r) => (

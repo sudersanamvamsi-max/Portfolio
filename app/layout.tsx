@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import { JetBrains_Mono, Newsreader, Public_Sans } from "next/font/google";
 import SiteHeader from "@/components/SiteHeader";
@@ -31,6 +31,14 @@ export const metadata: Metadata = {
     "/",
   ),
   icons: { icon: "/favicon.ico", apple: "/apple-touch-icon.png" },
+};
+
+// Mobile browser bar matches the header band; same values as --header-bg in globals.css.
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#1c2b36" },
+    { media: "(prefers-color-scheme: dark)", color: "#f5f7f8" },
+  ],
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {

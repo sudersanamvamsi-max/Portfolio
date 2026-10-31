@@ -5,9 +5,9 @@ Fonts: Newsreader (body, headings), Public Sans (`font-sans`, UI and captions), 
 Rules live in `claude/CLAUDE.md`; the source of truth for facts is `claude/content.md`. Never invent facts; unknown content stays a visible `TODO`.
 
 ## Global shell ([app/layout.tsx](../app/layout.tsx))
-- `SiteHeader` (left: `NameBox` home link; nav: About me, Research and publications, Projects, Contact me, CV) -> `<main max-w-5xl>` -> footer (email · GitHub · LinkedIn)
+- `SiteHeader` (full-width inverted band using the `--header-*` tokens, contents in a `max-w-5xl` container; left: `NameBox` home link; nav: About me, Research and publications, Projects, Contact me, CV) -> `<main max-w-5xl>` -> footer (email · GitHub · LinkedIn)
 - The CV nav item goes to `/cv` in the same tab. `cvHref` (`/cv/Vamsi_Sudersanam_SWE.pdf`) is the PDF embedded and downloaded there.
-- Layout exports the site-wide `metadata` (metadataBase, icons, default Open Graph and Twitter tags).
+- Layout exports `viewport.themeColor` (matches the header band per theme) and the site-wide `metadata` (metadataBase, icons, default Open Graph and Twitter tags).
 
 ## Routes
 

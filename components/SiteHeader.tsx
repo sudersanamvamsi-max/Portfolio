@@ -15,10 +15,10 @@ const TABS = [
 export default function SiteHeader() {
   const pathname = usePathname();
   return (
-    <header className="mx-auto w-full max-w-5xl px-5 py-6 font-sans">
+    <header className="site-header w-full bg-header-bg font-sans text-header-fg">
       <nav
         aria-label="Main"
-        className="flex flex-col gap-x-8 gap-y-2 sm:flex-row sm:flex-wrap sm:items-start"
+        className="mx-auto flex w-full max-w-5xl flex-col gap-x-8 gap-y-2 px-5 py-6 sm:flex-row sm:flex-wrap sm:items-start"
       >
         <span className="sm:mr-auto">
           <NameBox />
@@ -32,8 +32,8 @@ export default function SiteHeader() {
               aria-current={active ? "page" : undefined}
               className={
                 active
-                  ? "border-b-2 border-cohort-a pb-0.5 text-ink no-underline sm:mt-7"
-                  : "pb-0.5 text-muted no-underline hover:text-ink sm:mt-7"
+                  ? "border-b-2 border-header-accent pb-0.5 text-header-fg no-underline sm:mt-7"
+                  : "pb-0.5 text-header-muted no-underline hover:text-header-fg sm:mt-7"
               }
             >
               {label}
